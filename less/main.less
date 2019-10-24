@@ -20,7 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 1600px;
+  width: 1600px; //1440px
   height: 100vh;
   min-height: 900px;
   //height: 1117px;
@@ -32,14 +32,14 @@
     align-items: flex-start;
     width: 90%;
     height: 877px;
-    .toolbar {
+    .sidebar {
       display: flex;
       flex-direction: column;
       width: 18.75%;
       height: 100%;
       background-color: @colod-t-c;
       color: @color-t-h;
-      .toolbar-header {
+      &-header {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -50,10 +50,14 @@
         #search {
           margin: 0 0 0.4rem 2.1rem;
         }
-        .toolbar-header-logo {
+        &-logo {
           display: flex;
           justify-content: flex-start;
           align-items: center;
+          button {
+            background-color: @colod-t-c;
+            border: none;
+          }
           img {
             width: 1.4rem;
             height: 1.2rem;
@@ -70,7 +74,7 @@
           cursor: pointer;
         }
       }
-      .toolbar-person {
+      &-person {
         display: flex;
         width: 100%;
         height: 9.12%;
@@ -83,7 +87,7 @@
           border-radius: 50%;
 
         }
-        .toolbar-person-text {
+        &-text {
           margin-left: 0.8rem;
           h2 {
             margin: 0.8rem 0 0.1rem 0;
@@ -103,23 +107,23 @@
           margin-left: 3.5rem;
         }
       }
-      .toolbar-info {
+      &-info {
         display: flex;
         width: 100%;
         height: 9.12%;
         align-items: center;
         margin: 0.2rem 0 0 2rem;
-        .toolbar-info-task1 {
+        &-task1 {
           line-height: 1.4;
           .toolb-inf-task-text()
         }
-        .toolbar-info-task2 {
+        &-task2 {
           margin-left: 1.5rem;
           line-height: 1.4;
           .toolb-inf-task-text()
         }
       }
-      .toolbar-menu {
+      &-menu {
         display: flex;
         flex-direction: column;
         margin: 0.7rem 0 0 1.85rem;
@@ -131,12 +135,10 @@
             top: 0.2rem;
             left: 0.7rem;
           }
-
           input:checked ~ ul {
             display: none;
           }
-
-          .toolbar-menu-btn {
+          .sidebar-menu-btn {
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.8rem;
@@ -144,7 +146,7 @@
             opacity: 0.5;
             z-index: 5;
           }
-          .toolbar-menu-nav {
+          .sidebar-menu-nav {
             list-style-type: none;
             line-height: 2.25;
             margin-top: 1rem;
@@ -153,7 +155,7 @@
               font-size: 1rem;
               color: @color-t-h;
             }
-            #toolbar-menu-notific {
+            #sidebar-menu-notific {
               font-size: 0.9rem;
               padding: 0.1rem 0.4rem 0.1rem 0.4rem;
               margin-left: 0.5rem;
@@ -175,24 +177,28 @@
       height: 877px;
       //height: 100vh;
       background-color: @color-t-h;
-      .container-title {
+      &-title {
         display: flex;
         width: 100%;
         height: 15.5074%;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        .container-title-left {
+        &-left {
           display: flex;
           width: 50%;
           flex-direction: column;
           justify-content: center;
           align-items: flex-start;
           margin-left: 1.8rem;
-          .container-title-left-webred {
+          &-webred {
             display: flex;
             align-items: center;
             margin: 1rem 0 1rem 0.15rem;
+            button {
+              background-color: @color-t-h;
+              border: none;
+            }
             img {
               width: 2.3rem;
               height: 2.3rem;
@@ -211,12 +217,11 @@
               width: 1.7rem;
               height: 1.7rem;
               text-align: center;
-              font-size: 1.2rem;
-              font-weight: 600;
+              font-size: 0.9rem;
               margin: 0 0 0 0.2rem;
             }
           }
-          .container-title-left-navigation {
+          &-navigation {
             display: flex;
             a {
               display: block;
@@ -250,7 +255,7 @@
             }
           }
         }
-        .container-title-right {
+        &-right {
           display: flex;
           width: 50%;
           justify-content: flex-end;
@@ -293,13 +298,13 @@
           }
         }
       }
-      .container-content {
+      &-content {
         display: flex;
         width: 100%;
         height: 84.4925%;
         justify-content: center;
         background-color: rgb(241, 238, 232);
-        .container-box {
+        &-box {
           display: flex;
           width: 62.39%;
           height: 79.7570%;
@@ -309,7 +314,7 @@
           justify-content: flex-start;
           align-items: center;
           margin-top: 1.8rem;
-          .container-box-block1 {
+          &-block1 {
             width: 91.78%;
             height: 7.2192%;
             margin: 2.1rem 0 0.2rem 0;
@@ -318,14 +323,14 @@
             color: #131313;
             opacity: 0.5;
           }
-          .container-box-block {
+          &-block {
             width: 91.78%;
             height: 7.2192%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin: 0.4rem 0 1.2rem 0;
-            .block-size {
+            &-size {
               display: flex;
               width: 90.4%;
               align-items: center;
@@ -361,7 +366,7 @@
             .background-col3>a {
               background-color: #F7F6F3;
             } 
-          .container-box-block4 {
+          &-block4 {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -377,7 +382,7 @@
               line-height: 1.2;
             }
           }
-          .container-box-block5 {
+          &-block5 {
             width: 91.78%;
             height: 28%;
             display: flex;
@@ -412,7 +417,7 @@
                 opacity: 0.7;
               }
             }
-            .container-box-block6 {
+            &-img {
               margin: 1.4rem 0 0 3.7rem;
               img {
                 width: 6.2rem;

@@ -11,40 +11,40 @@
 <body>
   <div class="main">
     <div class="header">
-      <div class="toolbar">
-        <div class="toolbar-header">
-          <div class="toolbar-header-logo">
-            <img src="img/Logo.svg" alt="logo">
+      <div class="sidebar" id="mySidebar" style="display:flex">
+        <div class="sidebar-header">
+          <div class="sidebar-header-logo">
+            <button onclick="w3_close()"><img src="img/Logo.svg" alt="logo"></button>
             <p>Projectus</p>
           </div>
           <img src="img/Search.svg" alt="search" id="search">
         </div>
-        <div class="toolbar-person">
+        <div class="sidebar-person">
           <img src="img/JeanG.jpg" alt="Foto_Jean">
-          <div class="toolbar-person-text">
+          <div class="sidebar-person-text">
             <h2>Jean Gonzales</h2>
             <p>Product Owner</p>
           </div>
           <a href="#" id="user_info_btn"><sup>...</sup></a>
         </div> 
-        <div class="toolbar-info">
-          <div class="toolbar-info-task1">
+        <div class="sidebar-info">
+          <div class="sidebar-info-task1">
             <h2>372</h2>
             <p>Completed Tasks</p>
           </div>
-          <div class="toolbar-info-task2">
+          <div class="sidebar-info-task2">
             <h2>11</h2>
             <p>OpenTasks</p>
           </div>
         </div>
-        <div class="toolbar-menu">
+        <div class="sidebar-menu">
           <nav>
             <input type="checkbox" name="button" id="menu">
-            <a href="#" class="toolbar-menu-btn"><label for="menu">Menu</label></a>
-            <ul class="toolbar-menu-nav">
+            <a href="#" class="sidebar-menu-btn"><label for="menu">Menu</label></a>
+            <ul class="sidebar-menu-nav">
               <li><a href="#">Home</a></li>
               <li><a href="#">My Tasks</a></li>
-              <li><a href="#">Notifications</a><sup><a href="#" id="toolbar-menu-notific">3</a></sup></li>
+              <li><a href="#">Notifications</a><sup><a href="#" id="sidebar-menu-notific">3</a></sup></li>
             </ul>
           </nav>
         </div>
@@ -53,9 +53,9 @@
         <div class="container-title">
           <div class="container-title-left">
             <div class="container-title-left-webred">
-              <img src="img/Shapes.png" alt="form">
+              <button onclick="w3_open()"><img src="img/Shapes.png" alt="form"></button>
               <h1>Website Redesign</h1>
-              <a href="#"><sup>...</sup></a>
+              <a href="#"><sub><span>&#8226;&#8226;&#8226;</span></sub></a>
             </div>
             <div class="container-title-left-navigation">
               <a href="#">Tasks</a>
@@ -74,40 +74,40 @@
           </div>
         </div>
         <div class="container-content">
-          <div class="container-box">
-            <div class="container-box-block1">
+          <div class="container-content-box">
+            <div class="container-content-box-block1">
               <span>Today</span>
             </div>
-            <div class="container-box-block ">
-              <div class="block-size background-col2">
-                  <a href=""><img src="img/Icon.svg" alt="icon"></a>
+            <div class="container-content-box-block">
+              <div class="container-content-box-block-size background-col2">
+                  <a href="#"><img src="img/Icon.svg" alt="icon"></a>
                   <p>Darika Samak mark as done Listing on Product Hunt so 
                     that we can reach as many potential users</p>
               </div>
               <span>10:00 PM</span>
             </div>
-            <div class="container-box-block">
-              <div class="block-size background-col3">
+            <div class="container-content-box-block">
+              <div class="container-content-box-block-size background-col3">
                 <a href="#"><img src="img/icon_comm.svg" alt="icon"></a>
                 <p>Emilee Simchenko commented on Account for teams 
                   and personal in bottom style</p>
               </div>
               <span>10:00 PM</span>
             </div>
-            <div class="container-box-block4">
+            <div class="container-content-box-block4">
               <p>During a project build, it is necessary to evaluate 
                 the product design and development against project 
                 requirements and outcomes </p>
             </div>
 
-            <div class="container-box-block5">
+            <div class="container-content-box-block5">
               <div class="block-size5">
                 <a href="#"><img src="img/icon_download.png" alt="icon"></a>
                 <p>Darika Samak uploaded 4 files on An option to 
                       search in current projects or in all projects </p>    
                 <span>10:00 PM</span>
               </div>
-              <div class="container-box-block6">
+              <div class="container-content-box-block5-img">
                 <img src="img/img1.jpg" alt="img1">
                 <img src="img/img2.jpg" alt="img2">
                 <img src="img/img3.jpg" alt="img3">
@@ -120,5 +120,6 @@
       </div>
     </div> 
   </div>
+<script src="js/main.js"></script>
 </body>
 </html>
