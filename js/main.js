@@ -1,5 +1,5 @@
 function w3_open() {
-    document.getElementById("mySidebar").style.display = "flex";
+    document.getElementById("mySidebar").style.display = "block";
   }
   
   function w3_close() {

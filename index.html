@@ -11,11 +11,12 @@
 <body>
   <div class="main">
     <div class="header">
-      <div class="sidebar" id="mySidebar" style="display:flex">
+      <button onclick="w3_open()" class="btn"><img src="img/Logo.svg" alt="Menu"><sup>MENU</sup></button>
+      <div class="sidebar" id="mySidebar" >
         <div class="sidebar-header">
           <div class="sidebar-header-logo">
-            <button onclick="w3_close()"><img src="img/Logo.svg" alt="logo"></button>
-            <p>Projectus</p>
+              <button onclick="w3_close()"><img src="img/Logo.svg" alt="logo"></button>
+              <p>Projectus</p>
           </div>
           <img src="img/Search.svg" alt="search" id="search">
         </div>
@@ -39,8 +40,7 @@
         </div>
         <div class="sidebar-menu">
           <nav>
-            <input type="checkbox" name="button" id="menu">
-            <a href="#" class="sidebar-menu-btn"><label for="menu">Menu</label></a>
+            <a href="#" class="sidebar-menu-btn">Menu</a>
             <ul class="sidebar-menu-nav">
               <li><a href="#">Home</a></li>
               <li><a href="#">My Tasks</a></li>
@@ -53,9 +53,9 @@
         <div class="container-title">
           <div class="container-title-left">
             <div class="container-title-left-webred">
-              <button onclick="w3_open()"><img src="img/Shapes.png" alt="form"></button>
+              <img src="img/Shapes.png" alt="form">
               <h1>Website Redesign</h1>
-              <a href="#"><sub><span>&#8226;&#8226;&#8226;</span></sub></a>
+              <a href="#"><span>&#8226;&#8226;&#8226;</span></a>
             </div>
             <div class="container-title-left-navigation">
               <a href="#">Tasks</a>
@@ -80,9 +80,9 @@
             </div>
             <div class="container-content-box-block">
               <div class="container-content-box-block-size background-col2">
-                  <a href="#"><img src="img/Icon.svg" alt="icon"></a>
-                  <p>Darika Samak mark as done Listing on Product Hunt so 
-                    that we can reach as many potential users</p>
+                <a href="#"><img src="img/Icon.svg" alt="icon"></a>
+                <p>Darika Samak mark as done Listing on Product Hunt so 
+                  that we can reach as many potential users</p>
               </div>
               <span>10:00 PM</span>
             </div>
@@ -102,9 +102,11 @@
 
             <div class="container-content-box-block5">
               <div class="block-size5">
-                <a href="#"><img src="img/icon_download.png" alt="icon"></a>
-                <p>Darika Samak uploaded 4 files on An option to 
-                      search in current projects or in all projects </p>    
+                <div class="container-content-box-block-size background-col5">
+                  <a href="#"><img src="img/icon_download.png" alt="icon"></a>
+                  <p>Darika Samak uploaded 4 files on An option to 
+                     search in current projects or in all projects </p>    
+                </div>
                 <span>10:00 PM</span>
               </div>
               <div class="container-content-box-block5-img">
