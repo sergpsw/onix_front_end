@@ -1,0 +1,123 @@
+@color-bg_cont: #fff;
+@media screen and (max-width: 1280px) {
+  .wrapper {
+    .sidebar {
+      min-width: 21%;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    position: relative;
+    .sidebar {
+      position: absolute;
+      min-width: 80%;// !important;
+      display: none; 
+      z-index: 10;
+      .btnNoneSidebar {
+        width: 1.2rem;
+        height: 1.2rem;
+        background-color: @color-bg_cont;
+      }
+    }
+    .container {
+      min-width: 90%;
+      height: 100vh;
+      z-index: 1;
+      &-content {
+        &-box {
+          min-width: 90%;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    .sidebar {
+      &-tasks, &-menu {
+        margin-left: 20%;
+      }
+    }
+    .container {
+      &-title {
+        &-head {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          &-right {
+            margin: 1rem 0 0.5rem 0;
+          }
+        }
+        &-navigation>ul {
+          justify-content: center;
+        }
+      }      
+    }
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    .sidebar {
+      &-header {
+        &-logo  {
+          font-size: 1.3rem;
+          &::before {
+            width: 1.4rem;
+            height: 1.4rem;
+            top: 1.6rem;
+            left: 1.8rem;
+          }
+        }
+      }
+      &-menu {
+        &-btn {
+          font-size: 1rem;
+        }
+      }
+    }
+    .container {
+      &-title {
+        &-navigation>ul {
+          flex-direction: column;
+          li {
+            &:nth-child(1) {
+              margin-left: 5rem;
+            }
+            margin: 0 0 1rem 5rem;
+            a {
+              font-size: 1.2rem;
+              &::after {
+                width: min-content;
+              }
+              &:hover::after {
+                transform: scaleX(1);
+              }
+            }
+          }
+        }
+      } 
+      &-content {
+        &-box {
+          &-download {
+            &-img {
+              justify-content: center;
+              flex-wrap: wrap;
+              margin: 0;
+              .imgBg {
+                width: 8rem;
+                height: 8rem;
+                margin: 0.5rem 0.3rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

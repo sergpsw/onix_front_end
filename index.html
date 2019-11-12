@@ -1,123 +1,136 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>OnixFrontEndTest</title>
-  <link rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
   <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <link rel="stylesheet" type="text/css" href="css/media.css" />
 </head>
 <body>
-  <div class="main">
-    <div class="header">
-      <button onclick="w3_open()" class="btn"><img src="img/Logo.svg" alt="Menu"><sup>MENU</sup></button>
-      <div class="sidebar" id="mySidebar" >
-        <div class="sidebar-header">
-          <div class="sidebar-header-logo">
-              <button onclick="w3_close()"><img src="img/Logo.svg" alt="logo"></button>
-              <p>Projectus</p>
-          </div>
-          <img src="img/Search.svg" alt="search" id="search">
+  <div class="wrapper">
+    <button class="btnBlockSidebar"></button>
+    <div class="sidebar">
+      <button class="btnNoneSidebar"></button>
+      <div class="sidebar-header">
+        <div class="sidebar-header-logo">
+          <span >Projectus</span>
         </div>
-        <div class="sidebar-person">
-          <img src="img/JeanG.jpg" alt="Foto_Jean">
-          <div class="sidebar-person-text">
-            <h2>Jean Gonzales</h2>
-            <p>Product Owner</p>
-          </div>
-          <a href="#" id="user_info_btn"><sup>...</sup></a>
-        </div> 
-        <div class="sidebar-info">
-          <div class="sidebar-info-task1">
-            <h2>372</h2>
-            <p>Completed Tasks</p>
-          </div>
-          <div class="sidebar-info-task2">
-            <h2>11</h2>
-            <p>OpenTasks</p>
-          </div>
+        <button class="sidebar-header-search"></button>
+      </div>
+
+      <div class="sidebar-person">
+        <div class="sidebar-person-info">
+          <span>Jean Gonzales</span>
+          <span>Product Owner</span>
         </div>
-        <div class="sidebar-menu">
-          <nav>
-            <a href="#" class="sidebar-menu-btn">Menu</a>
-            <ul class="sidebar-menu-nav">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">My Tasks</a></li>
-              <li><a href="#">Notifications</a><sup><a href="#" id="sidebar-menu-notific">3</a></sup></li>
-            </ul>
-          </nav>
+        <button class="sidebar-person-btn"></button>
+      </div> 
+
+      <div class="sidebar-tasks">
+        <div class="sidebar-tasks-completed">
+          <span class="count-completed">372</span>
+          <span>Completed Tasks</span>
+        </div>
+        <div class="sidebar-tasks-open">
+          <span class="count-open">11</span>
+          <span>OpenTasks</span>
         </div>
       </div>
-      <div class="container">
-        <div class="container-title">
-          <div class="container-title-left">
-            <div class="container-title-left-webred">
-              <img src="img/Shapes.png" alt="form">
-              <h1>Website Redesign</h1>
-              <a href="#"><span>&#8226;&#8226;&#8226;</span></a>
-            </div>
-            <div class="container-title-left-navigation">
-              <a href="#">Tasks</a>
-              <a href="#">Kanban</a>
-              <a href="#">Activity</a>
-              <a href="#">Calendar</a>
-              <a href="#">Files</a>
-            </div>
+
+      <nav class="sidebar-menu">    
+        <button class="sidebar-menu-btn">Menu</button>   
+        <ul class="sidebar-menu-nav">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">My Tasks</a></li>
+          <li><a href="#">Notifications</a>
+            <span class="count-img">3</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+   
+    <div class="container">
+
+      <header class="container-title">
+        <div class="container-title-head">
+          <div class="container-title-head-left">
+            <span class="container-title-head-left-text">Website Redesign</span>
+            <button class="container-title-head-left-btn"></button>
           </div>
-          <div class="container-title-right">
-            <img src="img/Olga.jpg" alt="user1">
-            <img src="img/Robert.jpg" alt="user2">
-            <img src="img/Chris.jpg" alt="user3">
-            <a href="#" class="container-title__share">Share</a>
-            <a href="#" class="container-title__chat"><img src="img/CombinedShape.svg" alt="share">Chat</a>
+
+          <div class="container-title-head-right">
+            <div class="container-title-head-right-photo user1"></div>
+            <div class="container-title-head-right-photo user2"></div>
+            <div class="container-title-head-right-photo user3"></div>
+            <button class="container-title-head-right__share">Share</button>
+            <button class="container-title-head-right__chat">Chat</button>
           </div>
         </div>
-        <div class="container-content">
-          <div class="container-content-box">
-            <div class="container-content-box-block1">
-              <span>Today</span>
-            </div>
-            <div class="container-content-box-block">
-              <div class="container-content-box-block-size background-col2">
-                <a href="#"><img src="img/Icon.svg" alt="icon"></a>
-                <p>Darika Samak mark as done Listing on Product Hunt so 
-                  that we can reach as many potential users</p>
-              </div>
-              <span>10:00 PM</span>
-            </div>
-            <div class="container-content-box-block">
-              <div class="container-content-box-block-size background-col3">
-                <a href="#"><img src="img/icon_comm.svg" alt="icon"></a>
-                <p>Emilee Simchenko commented on Account for teams 
-                  and personal in bottom style</p>
-              </div>
-              <span>10:00 PM</span>
-            </div>
-            <div class="container-content-box-block4">
-              <p>During a project build, it is necessary to evaluate 
-                the product design and development against project 
-                requirements and outcomes </p>
-            </div>
+          
+        <nav class="container-title-navigation">
+          <ul>
+            <li><a href="#">Tasks</a></li>
+            <li><a href="#">Kanban</a></li>
+            <li><a href="#">Activity</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Files</a></li>
+          </ul>
+        </nav>
+      </header>
 
-            <div class="container-content-box-block5">
-              <div class="block-size5">
-                <div class="container-content-box-block-size background-col5">
-                  <a href="#"><img src="img/icon_download.png" alt="icon"></a>
-                  <p>Darika Samak uploaded 4 files on An option to 
-                     search in current projects or in all projects </p>    
-                </div>
-                <span>10:00 PM</span>
-              </div>
-              <div class="container-content-box-block5-img">
-                <img src="img/img1.jpg" alt="img1">
-                <img src="img/img2.jpg" alt="img2">
-                <img src="img/img3.jpg" alt="img3">
-                <img src="img/img4.jpg" alt="img4">
-              </div>
-            </div>
+      <div class="container-content">
 
+        <div class="container-content-box">
+
+          <div class="container-content-box-head">
+            <span>Today</span>
           </div>
+          
+          <div class="container-content-box-notice">
+            <div class="box-block-style">
+              <div class="box-icon-style background-iconNotice"></div>
+              <p>Darika Samak mark as done Listing on Product Hunt so 
+                that we can reach as many potential users</p>
+            </div>
+            <span>8:40 PM</span>
+          </div>
+
+          <div class="container-content-box-comment">
+            <div class="box-block-style">
+              <div class="box-icon-style background-iconComment"></div>
+              <p>Emilee Simchenko commented on Account for teams 
+                and personal in bottom style</p>
+            </div>
+            <span>7:32 PM</span>
+          </div>
+
+          <div class="container-content-box-commentText">
+            <p>During a project build, it is necessary to evaluate 
+              the product design and development against project 
+              requirements and outcomes </p>
+          </div>
+
+          <div class="container-content-box-download">
+            <div class="container-content-box-download-text">
+              <div class="box-block-style">
+                <div class="box-icon-style background-iconDownload"></div>
+                <p>Darika Samak uploaded 4 files on An option to 
+                    search in current projects or in all projects </p>    
+              </div>
+              <span>6:02 PM</span>
+            </div>
+            <div class="container-content-box-download-img">
+              <div class="imgBg img1"></div>
+              <div class="imgBg img2"></div>
+              <div class="imgBg img3"></div>
+              <div class="imgBg img4"></div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div> 

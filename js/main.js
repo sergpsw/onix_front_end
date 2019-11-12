@@ -1,7 +1,13 @@
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-  }
-  
-  function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-  }
+/*--Show sidebar--*/
+let btn_off = document.querySelector(".btnNoneSidebar");
+let btn_on = document.querySelector(".btnBlockSidebar");
+
+btn_off.onclick = function() {
+  document.querySelector(".sidebar").style.display = "none";
+}
+btn_on.onclick = function() {
+  document.querySelector(".sidebar").style.display = "block";
+}
+/*--------*/
+
+
