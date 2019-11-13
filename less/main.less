@@ -1,40 +1,45 @@
 @color-bg_sidebar: #000;
 @color-bg_cont: #fff;
 
-
 body {
   font-family: 'Open Sans',  Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 1.5;
 }
+
+.btnSidebar {
+  width: 1.2rem;
+  height: 1.2rem;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  background-position: center;
+  background-size: 55%;
+}
+.btnShowBlock {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.7rem;
+  background-image: url('../img/show.svg');
+}
+.btnShowNone {
+  top: 0.5rem;
+  right: 0.7rem;
+  background-image: url('../img/show2.png');
+  border-radius: 50%;
+  background-size: 50%;
+}
+
 .wrapper {
   display: flex;
   justify-content: space-between;
-  width:  100%;
   height: 100vh;
+  width:  100%;
   position: relative;
-  z-index: 2;
   .d-flex {
     display: flex;
   }
-
-  /*Show sidebar*/
-  .btnBlockSidebar {
-    width: 1.2rem;
-    height: 1.2rem;
-    position: absolute;
-    top: 0.5rem;
-    left: 0.7rem;
-    background-image: url('../img/show.svg');
-    background-repeat: no-repeat;
-    background-color: transparent;
-    border: none;
-    background-position: center;
-    background-size: 55%;
-    //size: 1;
-    z-index: 20;
-  }
-
   /*Sidebar*/
   .sidebar {
     height: 100%;
@@ -42,20 +47,6 @@ body {
     background-color: @color-bg_sidebar;
     color: @color-bg_cont;
     position: relative;
-    .btnNoneSidebar {
-      width: 1rem;
-      height: 1rem;
-      position: absolute;
-      top: 0.5rem;
-      right: 0.7rem;
-      background-image: url('../img/show2.png');
-      background-repeat: no-repeat;
-      background-color: transparent;
-      border: none;
-      background-position: center;
-      background-size: 55%;
-      z-index: 20;
-    }
     &-header {
       .d-flex;
       justify-content: space-around;
@@ -145,33 +136,22 @@ body {
       min-height: 80px;
       align-items: center;
       margin: 0.2rem 0 0.7rem 1.8rem;
-      &-completed {
-        .d-flex;
-        flex-direction: column;
-        line-height: 1.4;
-        cursor: pointer;
-        span:first-child {
-          font-size: 1.2rem; 
-        }
-        span:last-child {
-          font-size: 0.75rem;
-          opacity: 0.5;
-        }
-      }      
-      &-open {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.4;
-        margin-left: 1.2rem;
-        cursor: pointer;
-        span:first-child {
-          font-size: 1.2rem; 
-        }
-        span:last-child {
-          font-size: 0.75rem;
-          opacity: 0.5;
-        }
+    }
+    &-tasks div {
+      .d-flex;
+      flex-direction: column;
+      line-height: 1.4;
+      cursor: pointer;
+      span:first-child {
+        font-size: 1.2rem; 
       }
+      span:last-child {
+        font-size: 0.75rem;
+        opacity: 0.5;
+      }
+    }
+    .tasks-open {
+      margin-left: 1.2rem;
     }
     &-menu {
       .d-flex;
@@ -211,8 +191,6 @@ body {
             border-radius: 50%;
           }
         }
-
-
       }
     }
   }
@@ -222,16 +200,15 @@ body {
     .d-flex;
     flex-direction: column;
     height: 100%;
-    min-width: 80%;
+    width: 80%;
     background-color: @color-bg_cont;
     &-title {
       .d-flex;
       flex-direction: column;
       width: 100%;
-      //min-height: 18%;
+      height: min-content;
       &-head {
         .d-flex;
-        //width: 50%;
         justify-content: space-between;
         align-items: flex-end;
         margin: 0.5rem 0 0.5rem 1.8rem;
@@ -260,7 +237,6 @@ body {
           &-btn {
             background-color: #EAEAEA;
             background-image: url('../img/dots.png');
-            //opacity: 0.4;
             background-repeat: no-repeat;
             background-position: center;
             //background-size: cover;
@@ -268,7 +244,7 @@ body {
             border-radius: 50%;
             border: none;
             color: #D8D8D8;
-            width: 1.8rem;
+            min-width: 1.8rem;
             height: 1.8rem;
             margin: 0.7rem 0 0 0.8rem;
             cursor: pointer;
@@ -278,7 +254,7 @@ body {
           .d-flex;
           justify-content: flex-end;
           margin-right: 0.5rem;
-          margin-bottom: .3rem;
+          margin-bottom: 0.3rem;
           &-photo {
             margin-right: 0.45rem;
             width: 1.9rem;
@@ -383,11 +359,14 @@ body {
     &-content {
        .d-flex;
       width: 100%;
+      height: min-content;
       justify-content: center;
       background-color: rgb(241, 238, 232);
+      padding: 0 0.8rem;
       &-box {
         .d-flex;
-        width: 62%; //730px
+        width: max-content;
+        //min-width: 62%; //730px
         flex-direction: column;
         background-color: @color-bg_cont;
         border-radius: 5px;
@@ -483,7 +462,6 @@ body {
           border: none;
           width: 2.5rem;
           height: 2.5rem;
-          opacity: 0.8;
         }
         .background-iconNotice {
           background-color: #CEF9C6; 

@@ -3,6 +3,29 @@ body {
   font-size: 12px;
   line-height: 1.5;
 }
+.btnSidebar {
+  width: 1.2rem;
+  height: 1.2rem;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  background-position: center;
+  background-size: 55%;
+}
+.btnShowBlock {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.7rem;
+  background-image: url('../img/show.svg');
+}
+.btnShowNone {
+  top: 0.5rem;
+  right: 0.7rem;
+  background-image: url('../img/show2.png');
+  border-radius: 50%;
+  background-size: 50%;
+}
 .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10,11 +33,9 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 100%;
   height: 100vh;
+  width: 100%;
   position: relative;
-  z-index: 2;
-  /*Show sidebar*/
   /*Sidebar*/
   /*Container*/
 }
@@ -23,40 +44,12 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
-.wrapper .btnBlockSidebar {
-  width: 1.2rem;
-  height: 1.2rem;
-  position: absolute;
-  top: 0.5rem;
-  left: 0.7rem;
-  background-image: url('../img/show.svg');
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: none;
-  background-position: center;
-  background-size: 55%;
-  z-index: 20;
-}
 .wrapper .sidebar {
   height: 100%;
   min-width: 20%;
   background-color: #000000;
   color: #ffffff;
   position: relative;
-}
-.wrapper .sidebar .btnNoneSidebar {
-  width: 1rem;
-  height: 1rem;
-  position: absolute;
-  top: 0.5rem;
-  right: 0.7rem;
-  background-image: url('../img/show2.png');
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: none;
-  background-position: center;
-  background-size: 55%;
-  z-index: 20;
 }
 .wrapper .sidebar-header {
   display: -webkit-box;
@@ -177,7 +170,7 @@ body {
           align-items: center;
   margin: 0.2rem 0 0.7rem 1.8rem;
 }
-.wrapper .sidebar-tasks-completed {
+.wrapper .sidebar-tasks div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -188,31 +181,15 @@ body {
   line-height: 1.4;
   cursor: pointer;
 }
-.wrapper .sidebar-tasks-completed span:first-child {
+.wrapper .sidebar-tasks div span:first-child {
   font-size: 1.2rem;
 }
-.wrapper .sidebar-tasks-completed span:last-child {
+.wrapper .sidebar-tasks div span:last-child {
   font-size: 0.75rem;
   opacity: 0.5;
 }
-.wrapper .sidebar-tasks-open {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  line-height: 1.4;
+.wrapper .sidebar .tasks-open {
   margin-left: 1.2rem;
-  cursor: pointer;
-}
-.wrapper .sidebar-tasks-open span:first-child {
-  font-size: 1.2rem;
-}
-.wrapper .sidebar-tasks-open span:last-child {
-  font-size: 0.75rem;
-  opacity: 0.5;
 }
 .wrapper .sidebar-menu {
   display: -webkit-box;
@@ -280,7 +257,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
-  min-width: 80%;
+  width: 80%;
   background-color: #ffffff;
 }
 .wrapper .container-title {
@@ -292,6 +269,9 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
 }
 .wrapper .container-title-head {
   display: -webkit-box;
@@ -339,7 +319,7 @@ body {
   border-radius: 50%;
   border: none;
   color: #D8D8D8;
-  width: 1.8rem;
+  min-width: 1.8rem;
   height: 1.8rem;
   margin: 0.7rem 0 0 0.8rem;
   cursor: pointer;
@@ -352,7 +332,7 @@ body {
       -ms-flex-pack: end;
           justify-content: flex-end;
   margin-right: 0.5rem;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
 }
 .wrapper .container-title-head-right-photo {
   margin-right: 0.45rem;
@@ -467,16 +447,22 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   background-color: #f1eee8;
+  padding: 0 0.8rem;
 }
 .wrapper .container-content-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 62%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -609,7 +595,6 @@ body {
   border: none;
   width: 2.5rem;
   height: 2.5rem;
-  opacity: 0.8;
 }
 .wrapper .container-content-box .background-iconNotice {
   background-color: #CEF9C6;
