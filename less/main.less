@@ -57,7 +57,12 @@ body {
         font-size: 1rem;
         margin-left: 1.5rem;
         &::before {
-          content: url('../img/Logo.svg');
+          content: '';
+          position: absolute;
+          background-image: url('../img/CombinedShape.svg');
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
           width: 1.2rem;
           height: 1.2rem;
           position: absolute;
@@ -70,8 +75,12 @@ body {
         background-color: transparent;
         border: none;
         &::before {
+          content: '';
           position: absolute;
-          content:  url('../img/Search.svg');
+          background-image: url('../img/CombinedShape.svg');
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
           width: 1.4rem;
           height: 1.2rem;
           top: -0.5rem;
