@@ -54,25 +54,24 @@
       </nav>
     </div>
    
-    <div class="container">
-      <header class="container-title">
-        <div class="container-title-head">
-
-          <div class="container-title-head-left">
-            <span class="container-title-head-left-text">Website Redesign</span>
-            <button class="container-title-head-left-btn"></button>
+    <div class="flex-column">
+      <header class="navbar">
+        <div class="navbar-title">
+          <div class="navbar-title-left">
+            <span class="navbar-title-left-text">Website Redesign</span>
+            <button class="navbar-title-left-btn"></button>
           </div>
 
-          <div class="container-title-head-right">
-            <div class="container-title-head-right-photo user1"></div>
-            <div class="container-title-head-right-photo user2"></div>
-            <div class="container-title-head-right-photo user3"></div>
-            <button class="container-title-head-right__share">Share</button>
-            <button class="container-title-head-right__chat">Chat</button>
+          <div class="navbar-title-right">
+            <div class="navbar-title-right-photo user1"></div>
+            <div class="navbar-title-right-photo user2"></div>
+            <div class="navbar-title-right-photo user3"></div>
+            <button class="navbar-title-right__share">Share</button>
+            <button class="navbar-title-right__chat">Chat</button>
           </div>
         </div>
           
-        <nav class="container-title-navigation">
+        <nav class="navbar-navigation">
           <ul>
             <li><a href="#">Tasks</a></li>
             <li><a href="#">Kanban</a></li>
@@ -83,15 +82,14 @@
         </nav>
       </header>
 
-      <div class="container-content">
+      <div class="container">
+        <div class="container-box">
 
-        <div class="container-content-box">
-
-          <div class="container-content-box-head">
+          <div class="container-box-head">
             <span>Today</span>
           </div>
           
-          <div class="container-content-box-notice">
+          <div class="container-box-notice">
             <div class="box-block-style">
               <div class="box-icon-style background-iconNotice"></div>
               <p>Darika Samak mark as done Listing on Product Hunt so 
@@ -100,7 +98,7 @@
             <span>8:40 PM</span>
           </div>
 
-          <div class="container-content-box-comment">
+          <div class="container-box-comment">
             <div class="box-block-style">
               <div class="box-icon-style background-iconComment"></div>
               <p>Emilee Simchenko commented on Account for teams 
@@ -109,14 +107,14 @@
             <span>7:32 PM</span>
           </div>
 
-          <div class="container-content-box-commentText">
+          <div class="container-box-commentText">
             <p>During a project build, it is necessary to evaluate 
               the product design and development against project 
               requirements and outcomes </p>
           </div>
 
-          <div class="container-content-box-download">
-            <div class="container-content-box-download-text">
+          <div class="container-box-download">
+            <div class="container-box-download-text">
               <div class="box-block-style">
                 <div class="box-icon-style background-iconDownload"></div>
                 <p>Darika Samak uploaded 4 files on An option to 
@@ -124,7 +122,7 @@
               </div>
               <span>6:02 PM</span>
             </div>
-            <div class="container-content-box-download-img">
+            <div class="container-box-download-img">
               <div class="imgBg img1"></div>
               <div class="imgBg img2"></div>
               <div class="imgBg img3"></div>
@@ -133,8 +131,9 @@
           </div>
           
         </div>
-      </div>
-    </div> 
+      </div> 
+    </div>
+
   </div>
 <script src="js/main.js"></script>
 </body>
