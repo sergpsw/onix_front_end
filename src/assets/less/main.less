@@ -40,7 +40,7 @@ body {
   .d-flex {
     display: flex;
   }
-  .flex-column {
+  .wrap-flex-c {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -251,7 +251,6 @@ body {
           background-image: url('../img/dots.png');
           background-repeat: no-repeat;
           background-position: center;
-          //background-size: cover;
           background-size: 55%;
           border-radius: 50%;
           border: none;
@@ -342,8 +341,7 @@ body {
             color: #131313;
             opacity: 0.7;
             font-size: 1rem;
-            &:hover {
-              color: #000;
+            &:hover, &:active {
               opacity: 1;
               transition: all 0.5s;
             }
@@ -364,6 +362,10 @@ body {
           &:nth-child(1) {
             margin-left: -0.5rem;
           }
+          // &:nth-child(3) {
+          //   background-color: rgb(241, 238, 232);
+          //   border-radius: 5px;
+          // }
         }
       }
     }
@@ -371,16 +373,49 @@ body {
 
   /*Container*/
   .container {
+    //.d-flex-container {}
     .d-flex;
     width: 100%;
     height: min-content;
     justify-content: center;
     background-color: rgb(241, 238, 232);
     padding: 0 0.8rem;
-    &-box {
+    &-tasks {
+      width: 60%;
+      //width: max-content;
       .d-flex;
+      flex-direction: column;
+      background-color: @color-bg_cont;
+      border-radius: 5px;
+      align-items: center;
+      justify-content:  flex-end;
+      margin: 1.8rem 0 1rem 0;
+      padding-bottom: 1rem;
+      ul {
+        list-style-type: none;
+        li {
+          .d-flex;
+          border-bottom: solid 1px #000;
+          h4 {
+            font-size: 0.95rem;
+          }
+          p {
+            align-self: center;
+            width: 80%;
+            margin-left: 1.2rem;
+            font-size: 0.95rem;
+          }
+          span {
+            align-self: center;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+    &-box {
       width: max-content;
       //min-width: 62%; //730px
+      .d-flex;
       flex-direction: column;
       background-color: @color-bg_cont;
       border-radius: 5px;
@@ -500,7 +535,7 @@ body {
       } 
       span {
         align-self: flex-start;
-        padding-top: 0.5rem;;
+        padding-top: 0.5rem;
         font-size: 0.8rem;
         opacity: 0.7;
       }
