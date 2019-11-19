@@ -34,7 +34,7 @@
         <li><a href="#">Home</a></li>
         <li><a href="#">My Tasks</a></li>
         <li><a href="#">Notifications</a>
-          <span class="count-img"> {{notificationsCount}} </span>
+          <span class="count-img"> {{countImg}} </span>
         </li>
       </ul>
     </nav>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -50,14 +51,18 @@ export default {
       owner: 'Product Owner',
       countCompletedTasks: 372,
       countOpenTasks: 11,
-      notificationsCount: 5,
+    }
+  },
+  props: {
+    countImg: {
+      type: Number,
     }
   },
   methods: {
-    displayNone: function() {
+    displayNone() {
       document.querySelector(".sidebar").style.display = "none";
     },
-    tasksCompleted: function () {
+    tasksCompleted() {
       const tasksCompletedCount = document.querySelector(".count-completed");
       const tasksOpenCount = document.querySelector(".count-open");
       if(tasksOpenCount.innerHTML != 0){

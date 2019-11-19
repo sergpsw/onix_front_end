@@ -29,10 +29,12 @@
         <span>{{timeDownload}}</span>
       </div>
       <div class="container-box-download-img">
-        <div class="imgBg img1"></div>
-        <div class="imgBg img2"></div>
-        <div class="imgBg img3"></div>
-        <div class="imgBg img4"></div>
+        <div class="imgBg" 
+        v-for="(img, index) in imgs" 
+        :class="img"
+        :key="index"
+        @click='$emit("imgClick", index)'
+        ></div>
       </div>
     </div>
   </div>
@@ -55,7 +57,13 @@ export default {
       textDownload: `Darika Samak uploaded 4 files on An option to 
                       search in current projects or in all projects`,
       timeDownload: '6:02 PM',
+      imgs: [
+        "img1",
+        "img2",
+        "img3",
+        "img4"
+      ]
     }
-  }
+  },
 }
 </script>

@@ -32,11 +32,8 @@ export default {
       titleName: 'Website Redesign',
       shows: {
         view: true,
-      }
+      },
     }
-  },
-  props: {    
-    viTasks: Boolean
   },
   methods: {
     showTasks() {
@@ -48,3 +45,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

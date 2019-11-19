@@ -1,16 +1,24 @@
 <template>
   <div class="wrapper">
-    <button class="btnSidebar btnShowBlock" @click="displayBlock"></button>
-    <sidebar/>
+    <button class="btnSidebar btnShowBlock" 
+      @click="displayBlock">
+    </button>
+    <sidebar 
+      :countImg="countImg"
+    />
     <div class="wrap-flex-c">
       <navbar
-      @showTasks="shTasks" 
-      @showChat="shChat" 
-      :viTasks="shows.view"
+        @showTasks="shTasks" 
+        @showChat="shChat" 
+        :viTasks="shows.view"
       />
       <div class="container"> 
-        <container-tasks  v-show="shows.viewTasks"/>
-        <container-chat v-show="shows.viewChat"/>
+        <container-tasks  
+          v-show="shows.viewTasks"/>
+        <container-chat 
+          v-show="shows.viewChat"
+          @imgClick="imageSelect"
+          :indexImg="index"/>
       </div>
     </div>
   </div>
@@ -30,16 +38,19 @@ export default {
         viewTasks: false,
         viewChat: true
       },
+      countImg: 3
     }
   },
   methods: {
-    displayBlock: function() {
+    displayBlock () {
       document.querySelector(".sidebar").style.display = "block";
+    },
+    imageSelect(indexImg) {
+      this.countImg = indexImg;
     },
     shTasks(viTasks) {
       this.shows.viewTasks = viTasks;
       this.shows.viewChat = !viTasks;
-      console.log(shows.viewTasks);
     },
     shChat(viTasks) {
       this.shows.viewTasks = !viTasks;
