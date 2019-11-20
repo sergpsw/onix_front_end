@@ -15,9 +15,9 @@
     </div>
     <nav class="navbar-navigation">
       <ul>
-        <li><a href="#" @click="showTasks">Tasks</a></li>
+        <li><a href="#":class="activeLinkTasks" @click="showTasks">Tasks</a></li>
         <li><a href="#">Kanban</a></li>
-        <li><a href="#" @click="showChat">Activity</a></li>
+        <li><a href="#" :class="activeLinkChat" @click="showChat">Activity</a></li>
         <li><a href="#">Calendar</a></li>
         <li><a href="#">Files</a></li>
       </ul>
@@ -33,19 +33,23 @@ export default {
       shows: {
         view: true,
       },
+      activeLinkTasks: '',
+      activeLinkChat: 'activeLink',
+      activeLink: 'activeLink',
+      deactiveLink: ''
     }
   },
   methods: {
     showTasks() {
       this.$emit("showTasks", this.shows.view);
+      this.activeLinkTasks = this.activeLink;
+      this.activeLinkChat = this.deactiveLink;
     },
     showChat() {
       this.$emit("showChat", this.shows.view);
+      this.activeLinkChat = this.activeLink;
+      this.activeLinkTasks = this.deactiveLink;
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

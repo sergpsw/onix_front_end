@@ -26,5 +26,37 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.container-tasks {
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 5px;
+  align-items: center;
+  justify-content:  flex-end;
+  margin: 1.8rem 0 1rem 0;
+  padding-bottom: 1rem;
+  ul {
+    list-style-type: none;
+    padding-right: 1.5rem;
+    li {
+      display: flex;
+      border-bottom: solid 1px #000;
+      h4 {
+        font-size: 0.95rem;
+      }
+      p {
+        align-self: center;
+        width: 80%;
+        margin-left: 1.2rem;
+        font-size: 0.95rem;
+      }
+      span {
+        align-self: center;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
 </style>
