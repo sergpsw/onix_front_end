@@ -34,16 +34,18 @@
         <li><a href="#">Home</a></li>
         <li><a href="#">My Tasks</a></li>
         <li><a href="#">Notifications</a>
-          <span class="count-img"> {{countImg}} </span>
+          <span class="count-img"> {{ countImg }} </span>
         </li>
       </ul>
     </nav>
   </div>
 </template>
 
-<script>
 
+<script>
+import {eventEmitter} from '../main'
 export default {
+  name: 'Sidebar',
   data() {
     return {
       logo: 'Projectus',
@@ -51,13 +53,7 @@ export default {
       owner: 'Product Owner',
       countCompletedTasks: 372,
       countOpenTasks: 11,
-      //countImg: 3
-    }
-  },
-  props: {
-    countImg: {
-      type: Number,
-      default: 3,
+      countImg: 3
     }
   },
   methods: {
@@ -77,8 +73,11 @@ export default {
         }       
       } else { alert("No open tasks!"); }
     }
+  },
+  created() {
+    eventEmitter.$on('clickedImg', (index) => {
+      this.countImg = index
+    })
   }
 }
 </script>
-
-

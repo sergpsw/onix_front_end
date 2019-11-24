@@ -5,17 +5,18 @@
       <li 
         v-for="task in tasks" 
         :key="task.title">
-        <h4>{{ task.title}}.</h4>
-        <p>{{task.text}} - </p>
-        <span> {{task.time}}</span>
+        <h4>{{ task.title }}.</h4>
+        <p>{{ task.text }} - </p>
+        <span>{{ task.time }}</span>
       </li>
     </ul>
   </div>
 </template>
 
+
 <script>
 export default {
-  name: 'content-tasks',
+  name: 'ContentTasks',
   data() {
     return {
       tasks: [
@@ -29,6 +30,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped lang="less">
 .container-tasks {

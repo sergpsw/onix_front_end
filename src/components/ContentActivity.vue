@@ -1,48 +1,50 @@
 <template>
   <div class="container-box">
     <div class="container-box-head">
-      <span>{{activityDate}}</span>
+      <span>{{ activityDate }}</span>
     </div>
     <div class="container-box-notice">
       <div class="box-block-style">
         <div class="box-icon-style background-iconNotice"></div>
-        <p>{{activityNotice.text}}</p>
+        <p>{{ activityNotice.text }}</p>
       </div>
-      <span>{{activityNotice.time}}</span>
+      <span>{{ activityNotice.time }}</span>
     </div>
     <div class="container-box-comment">
       <div class="box-block-style">
         <div class="box-icon-style background-iconComment"></div>
-        <p>{{activityComment.text}}</p>
+        <p>{{ activityComment.text }}</p>
       </div>
-      <span>{{activityComment.time}}</span>
+      <span>{{ activityComment.time }}</span>
     </div>
     <div class="container-box-commentText">
-      <p>{{activityCommentText.text}}</p>
+      <p>{{ activityCommentText.text }}</p>
     </div>
     <div class="container-box-download">
       <div class="container-box-download-text">
         <div class="box-block-style">
           <div class="box-icon-style background-iconDownload"></div>
-          <p>{{activityDownload.text}}</p>    
+          <p>{{ activityDownload.text }}</p>    
         </div>
-        <span>{{activityDownload.time}}</span>
+        <span>{{ activityDownload.time }}</span>
       </div>
       <div class="container-box-download-img">
         <div class="imgBg" 
-        v-for="(img, index) in imgs" 
-        :class="img"
-        :key="index"
-        @click='$emit("imgClick", index)'
-        ></div>
+          v-for="(img, index) in imgs" 
+          :class="img"
+          :key="index"
+          @click="clickedImg(index)">
+        </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
+import {eventEmitter} from '../main'
 export default {
-  name: 'content-activity',
+  name: 'ContentActivity',
   data() {
     return {
       activityDate: 'Today',
@@ -55,11 +57,17 @@ export default {
         "img2",
         "img3",
         "img4"
-      ]
+      ],
     }
   },
+  methods: {
+    clickedImg(index) {
+      eventEmitter.$emit('clickedImg', index)
+    }
+  }
 }
 </script>
+
 
 <style scoped lang="less">
 @color-bg_sidebar: #000;

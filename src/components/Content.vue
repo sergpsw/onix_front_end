@@ -6,6 +6,14 @@
   </div>
 </template>
 
+
+<script>
+export default {
+  name: 'Content'
+}
+</script>
+
+
 <style>
 .container {
   display: flex;;

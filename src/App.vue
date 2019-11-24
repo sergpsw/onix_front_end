@@ -1,11 +1,17 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <button class="btnSidebar btnShowBlock" @click="displayBlock"> </button>
-      <Sidebar :countImg="countImg" />
+      <button class="btnSidebar btnShowBlock" 
+        @click="displayBlock">
+      </button>
+      <Sidebar />
+        <!-- :countImg="countImg" -->
+      
       <div class="wrap-flex-c">
         <Header/>
-        <Content @imgClick="imageSelect" :indexImg="index"/>
+        <Content />
+          <!-- @imgClick="imageSelect" :indexImg="index" -->
+        
       </div>
     </div>
   </div>
@@ -18,18 +24,18 @@ import Header from '@/components/Header.vue'
 import Content from '@/components/Content.vue'
 
 export default {
-  data() {
-    return {
-      countImg: 3
-    }
-  },
+  // data() {
+  //   return {
+  //     countImg: 3
+  //   }
+  // },
   methods: {
     displayBlock () {
       document.querySelector(".sidebar").style.display = "block";
     },
-    imageSelect(indexImg) {
-      this.countImg = indexImg;
-    },
+    // imageSelect(indexImg) {
+    //   this.countImg = indexImg;
+    // },
   },
   components: {
     Sidebar,
