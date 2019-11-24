@@ -1,7 +1,5 @@
 <template>
-  <content-activity 
-    @imgClick="imageSelect" :indexImg="index"
-  />
+  <content-activity />
 </template>
 
 
@@ -9,16 +7,6 @@
 import ContentActivity from '@/components/ContentActivity.vue'
 
 export default {
-  data() {
-    return {
-      countImg: 3
-    }
-  },
-  methods: {
-    imageSelect(indexImg) {
-      this.countImg = indexImg;
-    },
-  },
   components: {
     ContentActivity
   }
