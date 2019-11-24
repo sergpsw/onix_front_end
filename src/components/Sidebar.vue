@@ -51,11 +51,13 @@ export default {
       owner: 'Product Owner',
       countCompletedTasks: 372,
       countOpenTasks: 11,
+      //countImg: 3
     }
   },
   props: {
     countImg: {
       type: Number,
+      default: 3,
     }
   },
   methods: {

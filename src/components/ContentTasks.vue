@@ -1,8 +1,11 @@
 <template>
   <div class="container-tasks">
+    <router-view/>
     <ul class="box-block-style">
-      <li v-for="task in tasks" v-bind:value="task.value">
-        <h4>{{ task.value}}.</h4>
+      <li 
+        v-for="task in tasks" 
+        :key="task.title">
+        <h4>{{ task.title}}.</h4>
         <p>{{task.text}} - </p>
         <span> {{task.time}}</span>
       </li>
@@ -12,14 +15,15 @@
 
 <script>
 export default {
+  name: 'content-tasks',
   data() {
     return {
       tasks: [
-        { value: 'Task1', text: 'Buy water', time: '2.12.19' },
-        { value: 'Task2', text: 'Buy bread', time: '4.12.19' },
-        { value: 'Task3', text: 'Buy oil', time: '8.12.19' },
-        { value: 'Task4', text: 'Buy vegetables', time: '16.12.19' },
-        { value: 'Task5', text: 'Buy fruits', time: '3.12.19' }
+        { title: 'Task1', text: 'Buy water', time: '2.12.19' },
+        { title: 'Task2', text: 'Buy bread', time: '4.12.19' },
+        { title: 'Task3', text: 'Buy oil', time: '8.12.19' },
+        { title: 'Task4', text: 'Buy vegetables', time: '16.12.19' },
+        { title: 'Task5', text: 'Buy fruits', time: '3.12.19' }
       ],
     }
   }

@@ -1,21 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    redirect: 'tasks'
   },
 
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   component: () => import('../views/About.vue')
-  // }
+  {
+    path: '/tasks',
+    ///name: 'tasks',
+    component: () => import('../views/Tasks.vue')
+  },
+
+  {
+    path: '/activity',
+    //name: 'activity',
+    component: () => import('../views/Activity.vue')
+  }
   
 ]
 
