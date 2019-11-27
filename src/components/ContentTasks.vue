@@ -34,13 +34,13 @@ export default {
 
 <style scoped lang="less">
 .container-tasks {
-  min-width: max-content;
   display: flex;
   flex-direction: column;
+  width: max-content;
+  height: min-content;
   background-color: #fff;
   border-radius: 5px;
   align-items: center;
-  justify-content:  flex-end;
   margin: 1.8rem 0 1rem 0;
   padding-bottom: 1rem;
   ul {

@@ -73,9 +73,10 @@ export default {
 @color-bg_sidebar: #000;
 @color-bg_cont: #fff;
 .container-box {
-  width: max-content;
   display: flex;
   flex-direction: column;
+  width: max-content;
+  height: min-content;
   background-color: @color-bg_cont;
   border-radius: 5px;
   align-items: center;

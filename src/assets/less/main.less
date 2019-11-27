@@ -40,13 +40,6 @@ body {
   .d-flex {
     display: flex;
   }
-  .wrap-flex-c {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 80%;
-    background-color: @color-bg_cont;
-  }
   
   /*Sidebar*/
   .sidebar {
@@ -211,10 +204,18 @@ body {
       }
     }
   }
+  .wrap-flex-c {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 80%;
+    background-color: @color-bg_cont;
+  }
 
   /*Navbar*/
   .navbar {
     .d-flex;
+    // flex-grow: 0;
     flex-direction: column;
     flex-wrap: wrap;
     width: 100%;

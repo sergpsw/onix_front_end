@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div class="container"> 
-      <router-view/>
-    </div>
+  <div class="container"> 
+    <router-view/>
   </div>
 </template>
 
@@ -14,11 +12,12 @@ export default {
 </script>
 
 
-<style>
+<style lang="less">
 .container {
-  display: flex;;
+  display: flex;
+  flex: 1 0 auto;
+  align-content: stretch;
   width: 100%;
-  height: min-content;
   justify-content: center;
   background-color: rgb(241, 238, 232);
   padding: 0 0.8rem;
