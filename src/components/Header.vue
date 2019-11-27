@@ -15,25 +15,50 @@
     </div>
     <nav class="navbar-navigation">
       <ul>
-        <li 
-          @click="clickedLinkT">
-          <router-link 
-            :class="[styleLink, linkTasks]" to="/tasks" >Tasks</router-link>
-        </li>
-        <li><router-link 
-              :class="styleLink" to="/">Kanban</router-link>
-        </li>
-        <li 
-          @click="clickedLinkA">
-          <router-link 
-            :class="[styleLink, linkActivity]" to="/activity" >Activity</router-link>
-        </li>
-        <li><router-link 
-              :class="styleLink" to="/">Calendar</router-link>
-        </li>
-        <li><router-link 
-              :class="styleLink" to="/">Files</router-link>
-        </li>
+        <router-link
+          to="/tasks"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li>
+            <a :href="href" :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']">Tasks</a>
+          </li>
+        </router-link>
+
+        <router-link
+          to="/"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li>
+            <a :href="href" :class="styleLink">Kanban</a>
+          </li>
+        </router-link>
+
+        <router-link
+          to="/activity"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li>
+            <a :href="href" :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']">Activity</a>
+          </li>
+        </router-link>
+
+        <router-link
+          to="/"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li>
+            <a :href="href" :class="styleLink">Calendar</a>
+          </li>
+        </router-link>
+
+        <router-link
+          to="/"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li>
+            <a :href="href" :class="styleLink">Files</a>
+          </li>
+        </router-link>
       </ul>
     </nav>
   </header>
@@ -47,21 +72,7 @@ export default {
     return {
       titleName: 'Website Redesign',
       styleLink: 'link',
-      linkTasks: 'activeLink',
-      linkActivity: '',
-      deactiveLink: '',
-      activeLink: 'activeLink'
     }
   },
-  methods: {
-    clickedLinkA() {
-      this.linkActivity = this.activeLink;
-      this.linkTasks = this.deactiveLink
-    },
-    clickedLinkT() {
-      this.linkTasks = this.activeLink;
-      this.linkActivity = this.deactiveLink
-    },
-  }
 }
 </script>
