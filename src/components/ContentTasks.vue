@@ -2,8 +2,8 @@
   <div class="container-tasks">
     <router-view/>
     <ul class="box-block-style">
-      <li 
-        v-for="task in tasks" 
+      <li
+        v-for="task in tasks"
         :key="task.title">
         <h4>{{ task.title }}.</h4>
         <p>{{ task.text }} - </p>
@@ -24,11 +24,11 @@ export default {
         { title: 'Task2', text: 'Buy bread', time: '4.12.19' },
         { title: 'Task3', text: 'Buy oil', time: '8.12.19' },
         { title: 'Task4', text: 'Buy vegetables', time: '16.12.19' },
-        { title: 'Task5', text: 'Buy fruits', time: '3.12.19' }
+        { title: 'Task5', text: 'Buy fruits', time: '3.12.19' },
       ],
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 

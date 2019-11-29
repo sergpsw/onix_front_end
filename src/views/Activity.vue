@@ -4,11 +4,11 @@
 
 
 <script>
-import ContentActivity from '@/components/ContentActivity.vue'
+import ContentActivity from '@/components/ContentActivity.vue';
 
 export default {
   components: {
-    ContentActivity
-  }
-}
+    ContentActivity,
+  },
+};
 </script>

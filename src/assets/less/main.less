@@ -93,28 +93,26 @@ body {
     &-person {
       .d-flex;
       min-height: 80px;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       background: #202020;
+      margin-left: -1rem;
+      &-fotoUser {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        margin-left: 2rem;
+      }
       &-info {
         .d-flex;
         flex-direction: column;
         align-items: space-around;
         justify-content: center;
         position: relative;
-        margin: 0 0 0 4rem;
-        &::before {
-          content: '';
-          position: absolute;
-          background-image: url('../img/JeanG.jpg');
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-          border-radius: 50%;
-          width: 3rem;
-          height: 3rem;
-          left: -3.8rem;
-        }
+        margin-left: -2.5rem;
         span:first-child {
           margin: 0 0 0.2rem 0.1rem;
           font-size: 0.85rem;
@@ -122,6 +120,7 @@ body {
         span:last-child {
           font-size: 0.75rem;
           opacity: 0.5;
+          margin-left: 0.1rem;
         }
       }
       &-btn {
@@ -134,6 +133,7 @@ body {
         font-size: 1.3rem;
         font-weight: bold;
         color: #D8D8D8;
+        margin-right: 1.5rem;
         &::before {
           position: absolute;
           content: '...';
@@ -212,7 +212,7 @@ body {
     background-color: @color-bg_cont;
   }
 
-  /*Navbar*/
+  /*Header*/
   .navbar {
     .d-flex;
     // flex-grow: 0;
@@ -272,25 +272,10 @@ body {
           width: 1.9rem;
           height: 1.9rem;
           border-radius: 50%;
-        }
-        .user1 {
-          background: url('../img/Olga.jpg');
           background-repeat: no-repeat;
           background-position: center;
           background-size: cover;
-        }
-        .user2 {
-          background: url('../img/Robert.jpg');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: cover;
-        }
-        .user3 {
-          background: url('../img/Chris.jpg');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: cover;
-        }            
+        }  
         &__share {
           .d-flex;
           justify-content: center;

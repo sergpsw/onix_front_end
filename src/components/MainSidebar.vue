@@ -9,12 +9,15 @@
     </div>
 
     <div class="sidebar-person">
+      <div class="sidebar-person-fotoUser"
+        :style="{backgroundImage: 'url(' + require('../assets/img/' + fotoUser) + ')'}">
+      </div>
       <div class="sidebar-person-info">
         <span>{{nameUser}}</span>
         <span>{{owner}}</span>
       </div>
       <button class="sidebar-person-btn"></button>
-    </div> 
+    </div>
 
     <div class="sidebar-tasks">
       <div class="tasks-completed" @click="tasksCompleted">
@@ -28,8 +31,8 @@
       </div>
     </div>
 
-    <nav class="sidebar-menu">    
-      <button class="sidebar-menu-btn">Menu</button>   
+    <nav class="sidebar-menu">
+      <button class="sidebar-menu-btn">Menu</button>
       <ul class="sidebar-menu-nav">
         <li><a href="#">Home</a></li>
         <li><a href="#">My Tasks</a></li>
@@ -43,41 +46,41 @@
 
 
 <script>
-import {eventEmitter} from '../main'
+import { eventEmitter } from '../main';
+
 export default {
   name: 'Sidebar',
   data() {
     return {
       logo: 'Projectus',
+      fotoUser: 'JeanG.jpg',
       nameUser: 'Jean Gonzales',
       owner: 'Product Owner',
       countCompletedTasks: 372,
       countOpenTasks: 11,
-      countImg: 3
-    }
+      countImg: 3,
+    };
   },
   methods: {
     displayNone() {
-      document.querySelector(".sidebar").style.display = "none";
+      document.querySelector('.sidebar').style.display = 'none';
     },
     tasksCompleted() {
-      const tasksCompletedCount = document.querySelector(".count-completed");
-      const tasksOpenCount = document.querySelector(".count-open");
-      if(tasksOpenCount.innerHTML != 0){
-        if(confirm('Are you sure you want to change the number of tasks?')){
-            tasksCompletedCount.innerHTML++;
-            tasksOpenCount.innerHTML--;
-            if(tasksOpenCount.innerHTML < 0){
-                tasksOpenCount.innerHTML++;
-            }
-        }       
-      } else { alert("No open tasks!"); }
-    }
+      if (this.countOpenTasks > 0) {
+        if (window.confirm('Are you sure you want to change the number of tasks?')) {
+          this.countCompletedTasks += 1;
+          this.countOpenTasks -= 1;
+          if (this.countOpenTasks < 0) {
+            this.countOpenTasks = +1;
+          }
+        }
+      } else { console.log('No open tasks!'); }
+    },
   },
   created() {
     eventEmitter.$on('clickedImg', (index) => {
-      this.countImg = index
-    })
-  }
-}
+      this.countImg = index;
+    });
+  },
+};
 </script>

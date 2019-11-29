@@ -6,9 +6,12 @@
         <button class="navbar-title-left-btn"></button>
       </div>
       <div class="navbar-title-right">
-        <div class="navbar-title-right-photo user1"></div>
-        <div class="navbar-title-right-photo user2"></div>
-        <div class="navbar-title-right-photo user3"></div>
+        <div class="navbar-title-right-photo"
+          :style="{backgroundImage: 'url(' + require('../assets/img/' + fotoUser1) + ')'}"></div>
+        <div class="navbar-title-right-photo"
+          :style="{backgroundImage: 'url(' + require('../assets/img/' + fotoUser2) + ')'}"></div>
+        <div class="navbar-title-right-photo"
+          :style="{backgroundImage: 'url(' + require('../assets/img/' + fotoUser1) + ')'}"></div>
         <button class="navbar-title-right__share">Share</button>
         <button class="navbar-title-right__chat">Chat</button>
       </div>
@@ -20,7 +23,10 @@
           v-slot="{ href, route, navigate, isActive, isExactActive }"
         >
           <li>
-            <a :href="href" :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']">Tasks</a>
+            <a :href="href"
+              :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']">
+              Tasks
+            </a>
           </li>
         </router-link>
 
@@ -38,7 +44,10 @@
           v-slot="{ href, route, navigate, isActive, isExactActive }"
         >
           <li>
-            <a :href="href" :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']">Activity</a>
+            <a :href="href"
+              :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']">
+              Activity
+            </a>
           </li>
         </router-link>
 
@@ -72,7 +81,10 @@ export default {
     return {
       titleName: 'Website Redesign',
       styleLink: 'link',
-    }
+      fotoUser1: 'Olga.jpg',
+      fotoUser2: 'Robert.jpg',
+      fotoUser3: 'Chris.jpg',
+    };
   },
-}
+};
 </script>

@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import ContentTasks from '@/components/ContentTasks.vue'
+import ContentTasks from '@/components/ContentTasks.vue';
 
 export default {
   components: {
-    ContentTasks
-  }
-}
+    ContentTasks,
+  },
+};
 </script>

@@ -24,14 +24,14 @@
       <div class="container-box-download-text">
         <div class="box-block-style">
           <div class="box-icon-style background-iconDownload"></div>
-          <p>{{ activityDownload.text }}</p>    
+          <p>{{ activityDownload.text }}</p>
         </div>
         <span>{{ activityDownload.time }}</span>
       </div>
       <div class="container-box-download-img">
-        <div class="imgBg" 
-          v-for="(img, index) in imgs" 
-          :class="img"
+        <div class="imgBg"
+          :style="{backgroundImage: 'url(' + require('../assets/img/' + img.bgImage) + ')'}"
+          v-for="(img, index) in imgs"
           :key="index"
           @click="clickedImg(index)">
         </div>
@@ -42,30 +42,31 @@
 
 
 <script>
-import {eventEmitter} from '../main'
+import { eventEmitter } from '../main';
+
 export default {
   name: 'ContentActivity',
   data() {
     return {
       activityDate: 'Today',
-      activityNotice: { text: `Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users`, time: '8:40 PM' },
-      activityComment: { text: `Emilee Simchenko commented on Account for teams and personal in bottom style`, time: '7:32 PM' },
-      activityCommentText: { text: `During a project build, it is necessary to evaluate the product design and development against project requirements and outcomes` },
-      activityDownload: { text: `Darika Samak uploaded 4 files on An option to search in current projects or in all projects`, time: '6:02 PM' },
+      activityNotice: { text: 'Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users', time: '8:40 PM' },
+      activityComment: { text: 'Emilee Simchenko commented on Account for teams and personal in bottom style', time: '7:32 PM' },
+      activityCommentText: { text: 'During a project build, it is necessary to evaluate the product design and development against project requirements and outcomes' },
+      activityDownload: { text: 'Darika Samak uploaded 4 files on An option to search in current projects or in all projects', time: '6:02 PM' },
       imgs: [
-        "img1",
-        "img2",
-        "img3",
-        "img4"
+        { bgImage: 'img1.jpg' },
+        { bgImage: 'img2.jpg' },
+        { bgImage: 'img3.jpg' },
+        { bgImage: 'img4.jpg' },
       ],
-    }
+    };
   },
   methods: {
     clickedImg(index) {
-      eventEmitter.$emit('clickedImg', index)
-    }
-  }
-}
+      eventEmitter.$emit('clickedImg', index);
+    },
+  },
+};
 </script>
 
 
@@ -129,27 +130,6 @@ export default {
         height: 6.2rem;
         margin-right: 0.45rem;
         border-radius: 10%;
-      }
-      .img1 {
-        background: url('../assets/img/img1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-      .img2 {
-        background: url('../assets/img/img2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-      .img3 {
-        background: url('../assets/img/img3.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-      .img4 {
-        background: url('../assets/img/img4.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -173,26 +153,26 @@ export default {
     height: 2.5rem;
   }
   .background-iconNotice {
-    background-color: #CEF9C6; 
+    background-color: #CEF9C6;
     background-image: url('../assets/img/Icon.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 35%;
-  } 
+  }
   .background-iconComment {
     background-color: #F7F6F3;
     background-image: url('../assets/img/icon_comm.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 35%;
-  } 
+  }
   .background-iconDownload {
     background-color: #E3EFFF;
     background-image: url('../assets/img/icon_download.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 35%;
-  } 
+  }
   span {
     align-self: flex-start;
     padding-top: 0.5rem;
