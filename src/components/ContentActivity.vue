@@ -21,7 +21,7 @@
           p {{ activityDownload.text }}
         span {{ activityDownload.time }}
       .container-box-download-img
-        .imgBg(:style="{backgroundImage: 'url(' + require('../assets/img/' + img.bgImage) + ')'}"
+        .imgBg(:style="{backgroundImage:'url('+require('../assets/img/'+img)+')'}"
               v-for="(img, index) in imgs"
               :key="index"
               @click="clickedImg(index)")
@@ -41,10 +41,10 @@ export default {
       activityCommentText: { text: 'During a project build, it is necessary to evaluate the product design and development against project requirements and outcomes' },
       activityDownload: { text: 'Darika Samak uploaded 4 files on An option to search in current projects or in all projects', time: '6:02 PM' },
       imgs: [
-        { bgImage: 'img1.jpg' },
-        { bgImage: 'img2.jpg' },
-        { bgImage: 'img3.jpg' },
-        { bgImage: 'img4.jpg' },
+        'img1.jpg',
+        'img2.jpg',
+        'img3.jpg',
+        'img4.jpg',
       ],
     };
   },
