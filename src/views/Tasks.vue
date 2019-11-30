@@ -1,5 +1,5 @@
-<template>
-  <content-tasks/>
+<template lang="pug">
+  content-tasks
 </template>
 
 <script>

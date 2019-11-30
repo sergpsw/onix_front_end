@@ -1,43 +1,30 @@
-<template>
-  <div class="container-box">
-    <div class="container-box-head">
-      <span>{{ activityDate }}</span>
-    </div>
-    <div class="container-box-notice">
-      <div class="box-block-style">
-        <div class="box-icon-style background-iconNotice"></div>
-        <p>{{ activityNotice.text }}</p>
-      </div>
-      <span>{{ activityNotice.time }}</span>
-    </div>
-    <div class="container-box-comment">
-      <div class="box-block-style">
-        <div class="box-icon-style background-iconComment"></div>
-        <p>{{ activityComment.text }}</p>
-      </div>
-      <span>{{ activityComment.time }}</span>
-    </div>
-    <div class="container-box-commentText">
-      <p>{{ activityCommentText.text }}</p>
-    </div>
-    <div class="container-box-download">
-      <div class="container-box-download-text">
-        <div class="box-block-style">
-          <div class="box-icon-style background-iconDownload"></div>
-          <p>{{ activityDownload.text }}</p>
-        </div>
-        <span>{{ activityDownload.time }}</span>
-      </div>
-      <div class="container-box-download-img">
-        <div class="imgBg"
-          :style="{backgroundImage: 'url(' + require('../assets/img/' + img.bgImage) + ')'}"
-          v-for="(img, index) in imgs"
-          :key="index"
-          @click="clickedImg(index)">
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  .container-box
+    .container-box-head
+      span {{ activityDate }}
+    .container-box-notice
+      .box-block-style
+        .box-icon-style.background-iconNotice
+        p {{ activityNotice.text }}
+      span {{ activityNotice.time }}
+    .container-box-comment
+      .box-block-style
+        .box-icon-style.background-iconComment
+        p {{ activityComment.text }}
+      span {{ activityComment.time }}
+    .container-box-commentText
+      p {{ activityCommentText.text }}
+    .container-box-download
+      .container-box-download-text
+        .box-block-style
+          .box-icon-style.background-iconDownload
+          p {{ activityDownload.text }}
+        span {{ activityDownload.time }}
+      .container-box-download-img
+        .imgBg(:style="{backgroundImage: 'url(' + require('../assets/img/' + img.bgImage) + ')'}"
+              v-for="(img, index) in imgs"
+              :key="index"
+              @click="clickedImg(index)")
 </template>
 
 

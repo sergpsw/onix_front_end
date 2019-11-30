@@ -1,7 +1,6 @@
-<template>
-  <div id="app">
-    <TheLayout />
-  </div>
+<template lang="pug">
+  div#app
+    TheLayout
 </template>
 
 

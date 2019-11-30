@@ -1,16 +1,12 @@
-<template>
-  <div class="container-tasks">
-    <router-view/>
-    <ul class="box-block-style">
-      <li
-        v-for="task in tasks"
-        :key="task.title">
-        <h4>{{ task.title }}.</h4>
-        <p>{{ task.text }} - </p>
-        <span>{{ task.time }}</span>
-      </li>
-    </ul>
-  </div>
+<template lang="pug">
+  .container-tasks
+    router-view
+    ul.box-block-styl
+      li(v-for="task in tasks"
+        :key="task.title")
+        h4 {{ task.title }}.
+        p {{ task.text }} -
+        span {{  task.time }}
 </template>
 
 

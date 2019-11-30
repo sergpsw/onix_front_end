@@ -1,47 +1,33 @@
-<template>
-  <div class="sidebar">
-    <button class="btnSidebar btnShowNone" @click="displayNone"></button>
-    <div class="sidebar-header">
-      <div class="sidebar-header-logo">
-        <span >{{logo}}</span>
-      </div>
-      <button class="sidebar-header-search"></button>
-    </div>
-
-    <div class="sidebar-person">
-      <div class="sidebar-person-fotoUser"
-        :style="{backgroundImage: 'url(' + require('../assets/img/' + fotoUser) + ')'}">
-      </div>
-      <div class="sidebar-person-info">
-        <span>{{nameUser}}</span>
-        <span>{{owner}}</span>
-      </div>
-      <button class="sidebar-person-btn"></button>
-    </div>
-
-    <div class="sidebar-tasks">
-      <div class="tasks-completed" @click="tasksCompleted">
-        <span class="count-completed">{{countCompletedTasks}}</span>
-        <span>Completed Tasks</span>
-      </div>
-      <div class="tasks-open">
-        <span class="count-open">{{countOpenTasks}}
-        </span>
-        <span>Open Tasks</span>
-      </div>
-    </div>
-
-    <nav class="sidebar-menu">
-      <button class="sidebar-menu-btn">Menu</button>
-      <ul class="sidebar-menu-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">My Tasks</a></li>
-        <li><a href="#">Notifications</a>
-          <span class="count-img"> {{ countImg }} </span>
-        </li>
-      </ul>
-    </nav>
-  </div>
+<template lang="pug">
+  .sidebar
+    button.btnSidebar.btnShowNone(@click="displayNone")
+    .sidebar-header
+      .sidebar-header-logo
+        span {{logo}}
+      button.sidebar-header-search
+    .sidebar-person
+      .sidebar-person-fotoUser(:style="{backgroundImage:'url('+require('../assets/img/'+foto)+')'}")
+      .sidebar-person-info
+        span {{nameUser}}
+        span {{owner}}
+      button.sidebar-person-btn
+    .sidebar-tasks
+      .tasks-completed(@click="tasksCompleted")
+        span.count-completed {{countCompletedTasks}}
+        span Completed Tasks
+      .tasks-open
+        span.count-open {{countOpenTasks}}
+        span Open Tasks
+    nav.sidebar-menu
+      button.sidebar-menu-btn Menu
+      ul.sidebar-menu-nav
+        li
+          a(href='#') Home
+        li
+          a(href='#') My Tasks
+        li
+          a(href='#') Notifications
+          span.count-img {{ countImg }}
 </template>
 
 
@@ -53,7 +39,7 @@ export default {
   data() {
     return {
       logo: 'Projectus',
-      fotoUser: 'JeanG.jpg',
+      foto: 'JeanG.jpg',
       nameUser: 'Jean Gonzales',
       owner: 'Product Owner',
       countCompletedTasks: 372,

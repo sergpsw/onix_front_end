@@ -1,5 +1,5 @@
-<template>
-  <content-activity />
+<template lang="pug">
+  content-activity
 </template>
 
 

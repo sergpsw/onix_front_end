@@ -1,14 +1,10 @@
-<template>
-  <div class="wrapper">
-    <button class="btnSidebar btnShowBlock"
-      @click="displayBlock">
-    </button>
-    <MainSidebar />
-    <div class="wrap-flex-c">
-      <MainHeader/>
-      <MainContent />
-    </div>
-  </div>
+<template lang="pug">
+  .wrapper
+    button.btnSidebar.btnShowBlock(@click="displayBlock")
+    MainSidebar
+    .wrap-flex-c
+      MainHeader
+      MainContent
 </template>
 
 
