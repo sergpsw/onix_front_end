@@ -7,30 +7,6 @@ body {
   line-height: 1.5;
 }
 
-.btnSidebar {
-  width: 1.2rem;
-  height: 1.2rem;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: none;
-  background-position: center;
-  background-size: 55%;
-}
-.btnShowBlock {
-  position: fixed;
-  top: 0.5rem;
-  left: 0.7rem;
-  background-image: url('../img/show.svg');
-}
-.btnShowNone {
-  top: 0.5rem;
-  right: 0.7rem;
-  background-image: url('../img/show2.png');
-  border-radius: 50%;
-  background-size: 50%;
-}
-
 .wrapper {
   display: flex;
   justify-content: space-between;
@@ -40,6 +16,20 @@ body {
   .d-flex {
     display: flex;
   }
+  .btnShowSidebar {
+    width: 1rem;
+    height: 1rem;
+    position: fixed;
+    top: 0.5rem;
+    left: 0.7rem;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    background-position: center;
+    background-size: 55%;
+    border-radius: 50%;
+    z-index: 20;
+  }
   
   /*Sidebar*/
   .sidebar {
@@ -48,6 +38,7 @@ body {
     background-color: @color-bg_sidebar;
     color: @color-bg_cont;
     position: relative;
+    z-index: 10;
     &-header {
       .d-flex;
       justify-content: space-around;
@@ -67,7 +58,7 @@ body {
           width: 1.2rem;
           height: 1.2rem;
           position: absolute;
-          top: 1.9rem;
+          top: 1.8rem;
           left: 1.5rem;
         }
       }

@@ -3,15 +3,16 @@
     TheLayout
 </template>
 
-
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import TheLayout from '@/layouts/TheLayout.vue';
 
-export default {
+@Component({
   components: {
     TheLayout,
   },
-};
+})
+export default class App extends Vue {}
 </script>
 
 

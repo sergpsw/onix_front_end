@@ -5,21 +5,21 @@
     .container-box-notice
       .box-block-style
         .box-icon-style.background-iconNotice
-        p {{ activityNotice.text }}
-      span {{ activityNotice.time }}
+        p {{ ActivityBlock[0].text }}
+      span {{ ActivityBlock[0].time }}
     .container-box-comment
       .box-block-style
         .box-icon-style.background-iconComment
-        p {{ activityComment.text }}
-      span {{ activityComment.time }}
+        p {{ ActivityBlock[1].text }}
+      span {{ ActivityBlock[1].time }}
     .container-box-commentText
-      p {{ activityCommentText.text }}
+      p {{ ActivityBlock[2].text }}
     .container-box-download
       .container-box-download-text
         .box-block-style
           .box-icon-style.background-iconDownload
-          p {{ activityDownload.text }}
-        span {{ activityDownload.time }}
+          p {{ ActivityBlock[3].text }}
+        span {{ ActivityBlock[3].time }}
       .container-box-download-img
         .imgBg(:style="{backgroundImage:'url('+require('../assets/img/'+img)+')'}"
               v-for="(img, index) in imgs"
@@ -28,32 +28,51 @@
 </template>
 
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import { eventEmitter } from '../main';
 
-export default {
-  name: 'ContentActivity',
-  data() {
-    return {
-      activityDate: 'Today',
-      activityNotice: { text: 'Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users', time: '8:40 PM' },
-      activityComment: { text: 'Emilee Simchenko commented on Account for teams and personal in bottom style', time: '7:32 PM' },
-      activityCommentText: { text: 'During a project build, it is necessary to evaluate the product design and development against project requirements and outcomes' },
-      activityDownload: { text: 'Darika Samak uploaded 4 files on An option to search in current projects or in all projects', time: '6:02 PM' },
-      imgs: [
-        'img1.jpg',
-        'img2.jpg',
-        'img3.jpg',
-        'img4.jpg',
-      ],
-    };
-  },
-  methods: {
-    clickedImg(index) {
-      eventEmitter.$emit('clickedImg', index);
+interface IActivityBlock {
+  text: string;
+  time?: string;
+}
+
+@Component({
+  name: "ContentActivity",
+})
+
+export default class ContentActivity extends Vue {
+  activityDate: string = 'Today';
+
+  ActivityBlock: IActivityBlock[] = [
+    {
+      text: 'Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users',
+      time: '8:40 PM',
     },
-  },
-};
+    {
+      text: 'Emilee Simchenko commented on Account for teams and personal in bottom style',
+      time: '7:32 PM',
+    },
+    {
+      text: 'During a project build, it is necessary to evaluate the product design and development against project requirements and outcomes',
+    },
+    {
+      text: 'Darika Samak uploaded 4 files on An option to search in current projects or in all projects',
+      time: '6:02 PM',
+    },
+  ]
+  
+  imgs: string[] = [
+    'img1.jpg',
+    'img2.jpg',
+    'img3.jpg',
+    'img4.jpg',
+  ];
+
+  clickedImg(index: number) {
+    eventEmitter.$emit('clickedImg', index);
+  }
+}
 </script>
 
 

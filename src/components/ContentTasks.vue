@@ -1,7 +1,7 @@
 <template lang="pug">
   .container-tasks
     router-view
-    ul.box-block-styl
+    ul.box-block-style
       li(v-for="task in tasks"
         :key="task.title")
         h4 {{ task.title }}.
@@ -10,21 +10,28 @@
 </template>
 
 
-<script>
-export default {
-  name: 'ContentTasks',
-  data() {
-    return {
-      tasks: [
-        { title: 'Task1', text: 'Buy water', time: '2.12.19' },
-        { title: 'Task2', text: 'Buy bread', time: '4.12.19' },
-        { title: 'Task3', text: 'Buy oil', time: '8.12.19' },
-        { title: 'Task4', text: 'Buy vegetables', time: '16.12.19' },
-        { title: 'Task5', text: 'Buy fruits', time: '3.12.19' },
-      ],
-    };
-  },
-};
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+interface ITask {
+  title: string;
+  text: string;
+  time: string;
+}
+
+@Component({
+  name: "ContentTasks",
+})
+
+export default class ContentTasks extends Vue {
+  tasks: ITask[] = [
+    { title: 'Task1', text: 'Buy water', time: '2.12.19' },
+    { title: 'Task2', text: 'Buy bread', time: '4.12.19' },
+    { title: 'Task3', text: 'Buy oil', time: '8.12.19' },
+    { title: 'Task4', text: 'Buy vegetables', time: '16.12.19' },
+    { title: 'Task5', text: 'Buy fruits', time: '3.12.19' },
+  ];
+}
 </script>
 
 

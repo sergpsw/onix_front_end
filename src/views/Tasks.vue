@@ -1,13 +1,15 @@
 <template lang="pug">
-  content-tasks
+  ContentTasks
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import ContentTasks from '@/components/ContentTasks.vue';
 
-export default {
+@Component({
   components: {
     ContentTasks,
   },
-};
+})
+export default class Tasks extends Vue {}
 </script>

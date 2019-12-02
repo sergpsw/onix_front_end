@@ -38,17 +38,22 @@
 </template>
 
 
-<script>
-export default {
-  name: 'Header',
-  data() {
-    return {
-      titleName: 'Website Redesign',
-      styleLink: 'link',
-      fotoUser1: 'Olga.jpg',
-      fotoUser2: 'Robert.jpg',
-      fotoUser3: 'Chris.jpg',
-    };
-  },
-};
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component({
+  name: "MainHeader",
+})
+
+export default class MainHeader extends Vue {
+  titleName: string = 'Website Redesign';
+
+  styleLink: string = 'link';
+
+  fotoUser1: string = 'Olga.jpg';
+
+  fotoUser2: string = 'Robert.jpg';
+
+  fotoUser3: string = 'Chris.jpg';
+}
 </script>

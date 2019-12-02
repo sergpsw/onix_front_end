@@ -1,6 +1,5 @@
 <template lang="pug">
   .sidebar
-    button.btnSidebar.btnShowNone(@click="displayNone")
     .sidebar-header
       .sidebar-header-logo
         span {{logo}}
@@ -31,42 +30,45 @@
 </template>
 
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import { eventEmitter } from '../main';
 
-export default {
-  name: 'Sidebar',
-  data() {
-    return {
-      logo: 'Projectus',
-      foto: 'JeanG.jpg',
-      nameUser: 'Jean Gonzales',
-      owner: 'Product Owner',
-      countCompletedTasks: 372,
-      countOpenTasks: 11,
-      countImg: 3,
-    };
-  },
-  methods: {
-    displayNone() {
-      document.querySelector('.sidebar').style.display = 'none';
-    },
-    tasksCompleted() {
-      if (this.countOpenTasks > 0) {
-        if (window.confirm('Are you sure you want to change the number of tasks?')) {
-          this.countCompletedTasks += 1;
-          this.countOpenTasks -= 1;
-          if (this.countOpenTasks < 0) {
-            this.countOpenTasks = +1;
-          }
+@Component({
+  name: "MainSidebar",
+})
+
+export default class MainSidebar extends Vue {
+  logo: string = 'Projectus';
+
+  foto: string = 'JeanG.jpg';
+
+  nameUser: string = 'Jean Gonzales';
+
+  owner: string = 'Product Owner';
+
+  countCompletedTasks: number = 372;
+
+  countOpenTasks: number = 11;
+
+  countImg: number = 3;
+
+  tasksCompleted() {
+    if (this.countOpenTasks > 0) {
+      if (window.confirm('Are you sure you want to change the number of tasks?')) {
+        this.countCompletedTasks += 1;
+        this.countOpenTasks -= 1;
+        if (this.countOpenTasks < 0) {
+          this.countOpenTasks += 1;
         }
-      } else { console.log('No open tasks!'); }
-    },
-  },
+      }
+    } else { alert('No open tasks!'); }// eslint-disable-line no-alert
+  }
+
   created() {
-    eventEmitter.$on('clickedImg', (index) => {
+    eventEmitter.$on('clickedImg', (index: number) => {
       this.countImg = index;
     });
-  },
-};
+  }
+}
 </script>
