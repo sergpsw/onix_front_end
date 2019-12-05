@@ -1,8 +1,8 @@
 <template lang="pug">
   .wrapper
-    button.btnShowSidebar.btnShowBlock(@click="onSidebar"
+    button.btnShowSidebar(@click="showSidebar"
       :style="{backgroundImage:'url('+require('../assets/img/'+imageBtn)+')'}")
-    MainSidebar(:style="{display: showDisplay}")
+    MainSidebar(:style="{display: displayStyle}")
     .wrap-flex-c
       MainHeader
       MainContent
@@ -23,16 +23,16 @@ import MainContent from '@/components/MainContent.vue';
   },
 })
 export default class TheLayout extends Vue {
-  showDisplay: string = '';
+  displayStyle: string = '';
 
   imageBtn: string = 'show.svg';
   
-  onSidebar() {
-    if (this.showDisplay === 'block') {
-      this.showDisplay = 'none';
+  showSidebar(): void {
+    if (this.displayStyle === 'block') {
+      this.displayStyle = 'none';
       this.imageBtn = 'show.svg';
     } else {
-      this.showDisplay = 'block';
+      this.displayStyle = 'block';
       this.imageBtn = 'show2.png';
     }
   }

@@ -34,7 +34,7 @@ import { eventEmitter } from '../main';
 
 interface IActivityBlock {
   text: string;
-  time?: string;
+  time?: string | number;
 }
 
 @Component({

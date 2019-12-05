@@ -35,7 +35,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { eventEmitter } from '../main';
 
 @Component({
-  name: "MainSidebar",
+  name: 'MainSidebar',
 })
 
 export default class MainSidebar extends Vue {
@@ -53,7 +53,7 @@ export default class MainSidebar extends Vue {
 
   countImg: number = 3;
 
-  tasksCompleted() {
+  tasksCompleted(): void {
     if (this.countOpenTasks > 0) {
       if (window.confirm('Are you sure you want to change the number of tasks?')) {
         this.countCompletedTasks += 1;
@@ -65,7 +65,7 @@ export default class MainSidebar extends Vue {
     } else { alert('No open tasks!'); }// eslint-disable-line no-alert
   }
 
-  created() {
+  created(): void {
     eventEmitter.$on('clickedImg', (index: number) => {
       this.countImg = index;
     });
