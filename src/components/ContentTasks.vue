@@ -6,7 +6,7 @@
         :key="task.title")
         h4 {{ task.title }}.
         p {{ task.text }} -
-        span {{  task.time }}
+        span {{ task.time }}
 </template>
 
 
@@ -20,7 +20,7 @@ interface ITask {
 }
 
 @Component({
-  name: "ContentTasks",
+  name: 'ContentTasks',
 })
 
 export default class ContentTasks extends Vue {

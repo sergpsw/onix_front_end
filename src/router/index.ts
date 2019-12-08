@@ -16,9 +16,27 @@ const routes = [
   },
 
   {
+    path: '/kanban',
+    // name: 'kanban',
+    component: () => import('../views/Kanban.vue'),
+  },
+
+  {
     path: '/activity',
     // name: 'activity',
     component: () => import('../views/Activity.vue'),
+  },
+
+  {
+    path: '/calendar',
+    // name: 'calendar',
+    component: () => import('../views/Calendar.vue'),
+  },
+
+  {
+    path: '/files',
+    // name: 'files',
+    component: () => import('../views/Files.vue'),
   },
 
 ];

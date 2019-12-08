@@ -13,10 +13,10 @@
     .sidebar-tasks
       .tasks-completed(@click="tasksCompleted")
         span.count-completed {{countCompletedTasks}}
-        span Completed Tasks
+        span.tasks_text Completed Tasks
       .tasks-open
         span.count-open {{countOpenTasks}}
-        span Open Tasks
+        span.tasks_text(@click="routerTasks") Open Tasks
     nav.sidebar-menu
       button.sidebar-menu-btn Menu
       ul.sidebar-menu-nav
@@ -63,6 +63,12 @@ export default class MainSidebar extends Vue {
         }
       }
     } else { alert('No open tasks!'); }// eslint-disable-line no-alert
+  }
+
+  routerTasks(): void {
+    if (this.countOpenTasks > 0) {
+      this.$router.push('/tasks');
+    }
   }
 
   created(): void {

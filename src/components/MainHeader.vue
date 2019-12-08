@@ -19,22 +19,22 @@
           li
             a(:href="href"
               :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']") Tasks
-        router-link(to="/" v-slot="{ href, route, navigate, isActive, isExactActive }")
+        router-link(to="/kanban" v-slot="{ href, route, navigate, isActive, isExactActive }")
           li
             a(:href="href"
-              :class="styleLink") Kanban
+              :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']") Kanban
         router-link(to="/activity" v-slot="{ href, route, navigate, isActive, isExactActive }")
           li
             a(:href="href"
               :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']") Activity
-        router-link(to="/" v-slot="{ href, route, navigate, isActive, isExactActive }")
+        router-link(to="/calendar" v-slot="{ href, route, navigate, isActive, isExactActive }")
           li
             a(:href="href"
-              :class="styleLink") Calendar
-        router-link(to="/" v-slot="{ href, route, navigate, isActive, isExactActive }")
+              :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']") Calendar
+        router-link(to="/files" v-slot="{ href, route, navigate, isActive, isExactActive }")
           li
             a(:href="href"
-              :class="styleLink") Files
+              :class="[styleLink, isActive && 'activeLink', isExactActive && 'link']") Files
 </template>
 
 
@@ -42,7 +42,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: "MainHeader",
+  name: 'MainHeader',
 })
 
 export default class MainHeader extends Vue {

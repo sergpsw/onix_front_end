@@ -38,7 +38,7 @@ interface IActivityBlock {
 }
 
 @Component({
-  name: "ContentActivity",
+  name: 'ContentActivity',
 })
 
 export default class ContentActivity extends Vue {
