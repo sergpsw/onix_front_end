@@ -26,7 +26,7 @@ export default class TheLayout extends Vue {
   displayStyle: string = '';
 
   imageBtn: string = 'show.svg';
-  
+
   showSidebar(): void {
     if (this.displayStyle === 'block') {
       this.displayStyle = 'none';

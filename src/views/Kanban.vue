@@ -11,5 +11,5 @@ import ContentComingSoon from '@/components/ContentComingSoon.vue';
     ContentComingSoon,
   },
 })
-export default class Tasks extends Vue {}
+export default class Kanban extends Vue {}
 </script>
