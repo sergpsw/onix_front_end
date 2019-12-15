@@ -27,7 +27,6 @@
         li
           a(href='#') Notifications
           span.count-img {{ countImg }}
-    .div
 </template>
 
 
@@ -41,9 +40,6 @@ import { eventEmitter } from '../main';
     countCompletedTasks() {
       return this.$store.getters.countCompletedTasks;
     },
-    countOpenTasks() {
-      return this.$store.getters.countOpenTasks;
-    },
   },
 })
 
@@ -56,22 +52,24 @@ export default class MainSidebar extends Vue {
 
   owner: string = 'Product Owner';
 
+  countOpenTasks: number = 11;
+
   countImg: number = 3;
 
   tasksCompleted(): void {
-    if (this.$store.state.countOpenTasks > 0) {
+    if (this.countOpenTasks > 0) {
       if (window.confirm('Are you sure you want to change the number of tasks?')) {
         this.$store.state.countCompletedTasks += 1;
-        this.$store.state.countOpenTasks -= 1;
-        if (this.$store.state.countOpenTasks < 0) {
-          this.$store.state.countOpenTasks += 1;
+        this.countOpenTasks -= 1;
+        if (this.countOpenTasks < 0) {
+          this.countOpenTasks += 1;
         }
       }
     } else { alert('No open tasks!'); }// eslint-disable-line no-alert
   }
 
   routerTasks(): void {
-    if (this.$store.state.countOpenTasks > 0) {
+    if (this.countOpenTasks > 0) {
       this.$router.push('/tasks');
     }
   }

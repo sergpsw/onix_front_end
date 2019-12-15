@@ -22,7 +22,7 @@ export default new Vuex.Store({
   },
   mutations: {
     createTask(state, newTask) {
-      state.tasks.push(newTask);
+      state.tasks.unshift(newTask);
     },
     deleteTask(state, id) {
       state.tasks.splice(id, 1);
@@ -40,14 +40,19 @@ export default new Vuex.Store({
   modules: {
   },
   getters: {
+    validTasks(state) {
+      return state.tasks.filter(p => {
+        return p.title && p.text
+      });
+    },
     allTasks(state) {
       return state.tasks;
     },
     countCompletedTasks(state) {
       return state.countCompletedTasks;
     },
-    countOpenTasks(state) {
-      return state.tasks.length;
+    countOpenTasks(state, getters) {
+      return getters.validTasks.length;
     },
   },
 });

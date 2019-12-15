@@ -159,8 +159,6 @@ export default class ContentTasks extends Vue {
           }
         }
         .container-tasks-right {
-          align-self: flex-start;
-          margin-top: 1rem;
           span {
             font-size: 0.65rem;
           }

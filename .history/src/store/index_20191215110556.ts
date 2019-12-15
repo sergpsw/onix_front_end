@@ -22,7 +22,7 @@ export default new Vuex.Store({
   },
   mutations: {
     createTask(state, newTask) {
-      state.tasks.push(newTask);
+      state.tasks.unshift(newTask);
     },
     deleteTask(state, id) {
       state.tasks.splice(id, 1);

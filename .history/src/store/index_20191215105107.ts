@@ -11,22 +11,19 @@ const tasks: ITask[] = [
   { title: 'Task4', text: 'Buy vegetables', time: '16.12.19' },
   { title: 'Task5', text: 'Buy fruits', time: '3.12.19' },
 ];
-let countCompletedTasks: number;
-let countOpenTasks: number;
 
 export default new Vuex.Store({
   state: {
     tasks,
     countCompletedTasks: 372,
-    countOpenTasks: 11,
   },
   mutations: {
     createTask(state, newTask) {
-      state.tasks.push(newTask);
+      state.tasks.unshift(newTask);
     },
     deleteTask(state, id) {
       state.tasks.splice(id, 1);
-      state.countCompletedTasks += 1;
+      state.countCompletedTasks = state.countCompletedTasks+1;
     },
   },
   actions: {
@@ -45,9 +42,6 @@ export default new Vuex.Store({
     },
     countCompletedTasks(state) {
       return state.countCompletedTasks;
-    },
-    countOpenTasks(state) {
-      return state.tasks.length;
     },
   },
 });

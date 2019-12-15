@@ -27,7 +27,6 @@
         li
           a(href='#') Notifications
           span.count-img {{ countImg }}
-    .div
 </template>
 
 

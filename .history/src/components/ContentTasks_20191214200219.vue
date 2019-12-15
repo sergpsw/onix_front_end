@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { ITask } from '@/types/tasks';
 
 @Component({
   name: 'ContentTasks',
@@ -51,11 +50,9 @@ export default class ContentTasks extends Vue {
       text: this.text,
       time: '',
     };
-    if (this.title && this.text) {
-      this.$store.dispatch('createTask', newTask);
-      this.title = '';
-      this.text = '';
-    }
+    this.$store.dispatch('createTask', newTask);
+    this.title = '';
+    this.text = '';
   }
 
   deleteTask(index: number): void {
@@ -117,7 +114,7 @@ export default class ContentTasks extends Vue {
     }
   }
   h2 {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
   }
   &-form {
     display: flex;
@@ -130,42 +127,15 @@ export default class ContentTasks extends Vue {
     }
     textarea {
       width: 90%;
-      max-height: 100px;
-      margin: 0.3rem 0;
+      height: 100px;
+      margin: 0.2rem 0;
     }
     button {
       background-color: #FFC200;
       border-radius: 5px;
       border: none;
-      padding: 0.5rem;
-      font-size: 0.7rem;
-      text-transform: uppercase;
+      padding: 0.7rem;
       cursor: pointer;
-    }
-  }
-}
-@media screen and (max-width: 320px) {
-  .container-tasks {
-    min-width: 200px;
-    ul {
-      li {
-        .container-tasks-left {
-          width: 90%;
-          h4 {
-            font-size: 0.7rem;
-          }
-          p {
-            font-size: 0.7rem;
-          }
-        }
-        .container-tasks-right {
-          align-self: flex-start;
-          margin-top: 1rem;
-          span {
-            font-size: 0.65rem;
-          }
-        }
-      }
     }
   }
 }

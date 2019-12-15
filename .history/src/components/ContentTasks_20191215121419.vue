@@ -1,7 +1,7 @@
 <template lang="pug">
   .container-tasks
     ul.box-block-style
-      li(v-for="(task, index) in allTasks"
+      li(v-for="(task, index) in validTasks"
         :key="index")
         .container-tasks-left
           h4 {{ task.title }}
@@ -34,8 +34,8 @@ import { ITask } from '@/types/tasks';
 @Component({
   name: 'ContentTasks',
   computed: {
-    allTasks() {
-      return this.$store.getters.allTasks;
+    validTasks() {
+      return this.$store.getters.validTasks;
     },
   },
 })
@@ -45,17 +45,15 @@ export default class ContentTasks extends Vue {
   text: string = '';
 
   submit(): void {
-    const newTask = {
+    const newTask: ITask[] = [{
       id: '',
       title: this.title,
       text: this.text,
       time: '',
-    };
-    if (this.title && this.text) {
-      this.$store.dispatch('createTask', newTask);
-      this.title = '';
-      this.text = '';
-    }
+    }];
+    this.$store.dispatch('createTask', newTask);
+    this.title = '';
+    this.text = '';
   }
 
   deleteTask(index: number): void {
@@ -117,7 +115,7 @@ export default class ContentTasks extends Vue {
     }
   }
   h2 {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
   }
   &-form {
     display: flex;
@@ -131,41 +129,14 @@ export default class ContentTasks extends Vue {
     textarea {
       width: 90%;
       max-height: 100px;
-      margin: 0.3rem 0;
+      margin: 0.2rem 0;
     }
     button {
       background-color: #FFC200;
       border-radius: 5px;
       border: none;
-      padding: 0.5rem;
-      font-size: 0.7rem;
-      text-transform: uppercase;
+      padding: 0.7rem;
       cursor: pointer;
-    }
-  }
-}
-@media screen and (max-width: 320px) {
-  .container-tasks {
-    min-width: 200px;
-    ul {
-      li {
-        .container-tasks-left {
-          width: 90%;
-          h4 {
-            font-size: 0.7rem;
-          }
-          p {
-            font-size: 0.7rem;
-          }
-        }
-        .container-tasks-right {
-          align-self: flex-start;
-          margin-top: 1rem;
-          span {
-            font-size: 0.65rem;
-          }
-        }
-      }
     }
   }
 }

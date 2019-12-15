@@ -16,13 +16,14 @@ let countOpenTasks: number;
 
 export default new Vuex.Store({
   state: {
-    tasks,
+    tasks: JSON.parse(localStorage.detItem('tasks') || tasks),
     countCompletedTasks: 372,
     countOpenTasks: 11,
   },
   mutations: {
     createTask(state, newTask) {
-      state.tasks.push(newTask);
+      state.tasks.unshift(newTask);
+      localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
     deleteTask(state, id) {
       state.tasks.splice(id, 1);

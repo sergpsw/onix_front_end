@@ -33,24 +33,21 @@ body {
   
   /*Sidebar*/
   .sidebar {
-    .d-flex;
-    flex-direction: column;
-    //flex: 1 0 auto;
     height: 100%;
-    min-width: 20%;
+    min-width: 20%;//270px;
     background-color: @color-bg_sidebar;
     color: @color-bg_cont;
     position: relative;
     z-index: 10;
     &-header {
       .d-flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       min-height: 80px;
       &-logo {
         text-transform: uppercase;
         font-size: 1rem;
-        margin-left: 3.7rem;
+        margin-left: 1.5rem;
         &::before {
           content: '';
           position: absolute;
@@ -79,7 +76,7 @@ body {
           width: 1.4rem;
           height: 1.2rem;
           top: -0.5rem;
-          left: -1.8rem;
+          left: 0.3rem;
           cursor: pointer;
         }
       }
@@ -90,15 +87,15 @@ body {
       justify-content: space-between;
       align-items: center;
       background: #202020;
-      margin-left: -0.5rem;
+      margin-left: -1rem;
       &-fotoUser {
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 3rem;
+        height: 3rem;
         border-radius: 50%;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-        margin-left: 1.5rem;
+        margin-left: 2rem;
       }
       &-info {
         .d-flex;
@@ -106,6 +103,7 @@ body {
         align-items: space-around;
         justify-content: center;
         position: relative;
+        margin-left: -2.5rem;
         span:first-child {
           margin: 0 0 0.2rem 0.1rem;
           font-size: 0.85rem;
@@ -138,30 +136,30 @@ body {
       .d-flex;
       min-height: 80px;
       align-items: center;
-      margin: 0.2rem 0 0.2rem 1.2rem;
+      margin: 0.2rem 0 0.7rem 1.8rem;
     }
-      &-tasks div {
-        .d-flex;
-        flex-direction: column;
-        line-height: 1.4;
-        cursor: pointer;
-        span:first-child {
-          font-size: 1.2rem; 
-        }
-        span:last-child {
-          font-size: 0.75rem;
-          opacity: 0.5;
+    &-tasks div {
+      .d-flex;
+      flex-direction: column;
+      line-height: 1.4;
+      cursor: pointer;
+      span:first-child {
+        font-size: 1.2rem; 
       }
+      span:last-child {
+        font-size: 0.75rem;
+        opacity: 0.5;
       }
-      .tasks-open {
-        margin-left: 1.2rem;
-      }
+    }
+    .tasks-open {
+      margin-left: 1.2rem;
+    }
     &-menu {
       .d-flex;
       flex-direction: column;
       align-items: flex-start;
-      margin: 0.8rem;
       &-btn {
+        margin-left: 1.5rem;
         background-color: transparent;
         border: none;
         text-transform: uppercase;
@@ -172,8 +170,7 @@ body {
       &-nav {
         list-style-type: none;
         line-height: 2.5;
-        padding: 0;
-        margin: 0.8rem 0 0 0.4rem;
+        margin: 0.8rem 0 0 -0.5rem;
         a {
           text-decoration: none;
           font-size: 0.9rem;
