@@ -23,12 +23,12 @@ export default new Vuex.Store({
   mutations: {
     createTask(state, newTask) {
       state.tasks.push(newTask);
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+      localStorage.setItem('tasks', JSON.stringify(tasksDef.concat(state.tasks)));
     },
     deleteTask(state, id) {
       state.tasks.splice(id, 1);
       state.countCompletedTasks += 1;
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+      localStorage.setItem('tasks', JSON.stringify(tasksDef.concat(state.tasks)));
     },
   },
   actions: {

@@ -16,7 +16,7 @@ let countOpenTasks: number;
 
 export default new Vuex.Store({
   state: {
-    tasks: JSON.parse(localStorage.getItem('tasks') || '[]'),
+    tasks: tasksDef.concat(JSON.parse(localStorage.getItem('tasks') || '[]')),
     countCompletedTasks: 372,
     countOpenTasks: 11,
   },
