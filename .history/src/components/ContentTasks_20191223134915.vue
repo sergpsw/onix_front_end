@@ -68,7 +68,7 @@ export default class ContentTasks extends Vue {
         blinkTag.classList.add('blinking');
         setTimeout(() => {
           blinkTag.classList.remove('blinking');
-        }, 2000);
+        }, 1500);
       }
     }
   }
