@@ -41,7 +41,7 @@ export default new Vuex.Store({
       return state.countCompletedTasks;
     },
     countOpenTasks(state) {
-      return state.tasks.length+4;
+      return state.tasks.length;
     },
   },
 });

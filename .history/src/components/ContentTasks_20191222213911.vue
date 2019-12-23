@@ -15,7 +15,7 @@
       button(
         type="submit") Add task
     ul.box-block-style
-      li.testBlink(
+      li(
         v-for="(task, index) in allTasks"
         :key="index")
         .container-tasks-left
@@ -32,18 +32,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { ITask } from '@/types/tasks';
 
-const tasksDef: ITask[] = [
-  { title: 'Task4', text: 'Buy vegetables', time: '4.12.19' },
-  { title: 'Task3', text: 'Buy oil', time: '8.12.19' },
-  { title: 'Task2', text: 'Buy bread', time: '16.12.19' },
-  { title: 'Task1', text: 'Buy water', time: '3.12.19' },
-];
-
 @Component({
   name: 'ContentTasks',
   computed: {
     allTasks() {
-      return this.$store.getters.allTasks.concat(tasksDef);
+      return this.$store.getters.allTasks;
     },
   },
 })
@@ -63,10 +56,6 @@ export default class ContentTasks extends Vue {
       this.$store.dispatch('createTask', newTask);
       this.title = '';
       this.text = '';
-      const blinkTag = document.querySelector('.testBlink');
-      if (blinkTag) {
-        blinkTag.classList.add('blinking');
-      }
     }
   }
 
