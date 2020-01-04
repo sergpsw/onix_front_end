@@ -4,25 +4,29 @@
     form.container-tasks-form(
       @submit.prevent="submit")
       input#title(
-        type="text"
+        type="description"
         placeholder="Title task"
         v-model="title")
       label(for="title")
       textarea#text(
         placeholder="Text task"
-        v-model="text")
-      label(for="text")
+        v-model="description")
+      label(for="description")
+      label(for="status")
       button(
         type="submit") Add task
     ul.box-block-style
-      li.testBlink(
+      li(
         v-for="(task, index) in allTasks"
-        :key="index")
+        :key="index"
+        ref='animBlink')
         .container-tasks-left
-          h4 {{ task.title }}
-          p {{ task.text }}
+          h4(
+            ref='animZoom') {{ task.title }}
+          p {{ task.description }}
         .container-tasks-right
-          span {{ task.time }}
+          span {{ task.date }}
+          span {{ task.status }}
           button.deleteBtn(
             @click="deleteTask(index)")
 </template>
@@ -30,13 +34,22 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { ITask } from '@/types/tasks';
+import { mapState } from 'vuex';
+import { ITask, eStatus } from '@/types/tasks';
 
 const tasksDef: ITask[] = [
-  { title: 'Task4', text: 'Buy vegetables', time: '4.12.19' },
-  { title: 'Task3', text: 'Buy oil', time: '8.12.19' },
-  { title: 'Task2', text: 'Buy bread', time: '16.12.19' },
-  { title: 'Task1', text: 'Buy water', time: '3.12.19' },
+  {
+    title: 'Task4', description: 'Buy vegetables', status: eStatus.todo, date: '4.12.19',
+  },
+  {
+    title: 'Task3', description: 'Buy oil', status: eStatus.todo, date: '8.12.19',
+  },
+  {
+    title: 'Task2', description: 'Buy bread', status: eStatus.todo, date: '16.12.19',
+  },
+  {
+    title: 'Task1', description: 'Buy water', status: eStatus.todo, date: '3.12.19',
+  },
 ];
 
 @Component({
@@ -45,31 +58,33 @@ const tasksDef: ITask[] = [
     allTasks() {
       return this.$store.getters.allTasks.concat(tasksDef);
     },
+    ...mapState([
+      'tasks',
+    ]),
   },
 })
 export default class ContentTasks extends Vue {
   title: string = '';
 
-  text: string = '';
+  description: string = '';
 
   submit(): void {
     const newTask = {
       id: '',
       title: this.title,
-      text: this.text,
-      time: '',
+      description: this.description,
+      date: '10.10.2020',
+      status: eStatus.todo,
     };
-    if (this.title && this.text) {
+    if (this.title && this.description) {
       this.$store.dispatch('createTask', newTask);
       this.title = '';
-      this.text = '';
-      const blinkTag = document.querySelector('.testBlink');
-      if (blinkTag) {
-        blinkTag.classList.add('blinking');
-        setTimeout(() => {
-          blinkTag.classList.remove('blinking');
-        }, 2000);
-      }
+      this.description = '';
+      const blinkDescrip = this.$refs.animBlink as Array<any>;
+      blinkDescrip[0].classList.add('blinking');
+      setTimeout(() => {
+        blinkDescrip[0].classList.remove('blinking');
+      }, 2000);
     }
   }
 
@@ -77,11 +92,11 @@ export default class ContentTasks extends Vue {
     this.$store.dispatch('deleteTask', index);
   }
 
-  mounted() {
-    const zoomTag = document.getElementsByTagName('h4');
-    for (let i = 0; i < zoomTag.length; i += 1) {
+  mounted():void {
+    const zoomTitle = this.$refs.animZoom as Array<any>;
+    for (let i = 0; i < zoomTitle.length; i += 1) {
       setTimeout(() => {
-        zoomTag[i].classList.add('zooming');
+        zoomTitle[i].classList.add('zooming');
       }, 500 * i);
     }
   }
@@ -109,7 +124,6 @@ export default class ContentTasks extends Vue {
       align-items: center;
       justify-content: space-between;
       border-bottom: solid 1px #000;
-
       .container-tasks-left {
         display: flex;
         justify-self: flex-start;

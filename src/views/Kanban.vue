@@ -1,14 +1,14 @@
 <template lang="pug">
-  ContentComingSoon
+  ContentKanban
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ContentComingSoon from '@/components/ContentComingSoon.vue';
+import ContentKanban from '@/components/ContentKanban.vue';
 
 @Component({
   components: {
-    ContentComingSoon,
+    ContentKanban,
   },
 })
 export default class Kanban extends Vue {}

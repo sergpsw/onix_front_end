@@ -4,7 +4,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
-export const eventEmitter = new Vue();// eslint-disable-line import/prefer-default-export
+export const eventEmitter = new Vue();
 
 Vue.config.productionTip = false;
 
