@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    //"noEmitOnError": true,
+    "noEmitOnError": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,

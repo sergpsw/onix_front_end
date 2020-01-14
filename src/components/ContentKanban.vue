@@ -1,23 +1,23 @@
 <template lang="pug">
   .container-tabl
     ul
-      li.head {{ todo }}
+      li.head To Do
       li(
         v-for="(task, index) in allTasks"
         :key="index"
-        v-if="task.status === 'todo'") {{ task.title }} {{ task.date }}
+        v-if="task.status === 'todo'") {{ task.title }} - {{ task.date }}
     ul
-      li.head {{ inprogress }}
+      li.head In Progress
       li(
         v-for="(task, index) in allTasks"
         :key="index"
-        v-if="task.status === 'inprogress'") {{ task.title }} {{ task.date }}
+        v-if="task.status === 'in progress'") {{ task.title }} - {{ task.date }}
     ul
-      li.head {{ done }}
+      li.head Done
       li(
         v-for="(task, index) in allTasks"
         :key="index"
-        v-if="task.status === 'done'") {{ task.title }} {{ task.date }}
+        v-if="task.status === 'done'") {{ task.title }} - {{ task.date }}
 </template>
 
 
@@ -25,22 +25,31 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { ITask, eStatus } from '@/types/tasks';
 
+const tasksDef: ITask[] = [
+  {
+    title: 'Task4', description: 'Buy vegetables', status: eStatus.inprogress, date: '4.12.19',
+  },
+  {
+    title: 'Task3', description: 'Buy oil', status: eStatus.inprogress, date: '8.12.19',
+  },
+  {
+    title: 'Task2', description: 'Buy bread', status: eStatus.done, date: '16.12.19',
+  },
+  {
+    title: 'Task1', description: 'Buy water', status: eStatus.done, date: '3.12.19',
+  },
+];
+
 @Component({
   name: 'ContentKanban',
   computed: {
     allTasks() {
-      return this.$store.getters.allTasks;
+      return this.$store.getters.allTasks.concat(tasksDef);
     },
   },
 })
 
-export default class ContentTasks extends Vue {
-  todo: string = 'To Do';
-
-  inprogress: string = 'In Progress';
-
-  done: string = 'Done';
-}
+export default class ContentTasks extends Vue {}
 </script>
 
 
@@ -57,6 +66,7 @@ export default class ContentTasks extends Vue {
       border: solid 1px #000;
       padding: 0;
       li {
+        height: 2.5rem;
         display: flex;
         align-items: center;
         justify-content: space-around;

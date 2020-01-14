@@ -64,6 +64,11 @@ export default class ContentActivity extends Vue {
     'img3.jpg',
     'img4.jpg',
   ];
+
+  // eslint-disable-next-line
+  clickedImg(index: number) {
+    eventEmitter.$emit('clickedImg', index);
+  }
 }
 </script>
 

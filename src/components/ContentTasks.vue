@@ -26,7 +26,13 @@
           p {{ task.description }}
         .container-tasks-right
           span {{ task.date }}
-          span {{ task.status }}
+          select
+            option(
+              v-if="task.status === 'todo'") {{ enumStatus.todo }}
+            option(
+              v-if="task.status === 'in progress'") {{ enumStatus.inprogress }}
+            option(
+              v-if="task.status === 'done'") {{ enumStatus.done }}
           button.deleteBtn(
             @click="deleteTask(index)")
 </template>
@@ -39,16 +45,16 @@ import { ITask, eStatus } from '@/types/tasks';
 
 const tasksDef: ITask[] = [
   {
-    title: 'Task4', description: 'Buy vegetables', status: eStatus.todo, date: '4.12.19',
+    title: 'Task4', description: 'Buy vegetables', status: eStatus.inprogress, date: '4.12.19',
   },
   {
-    title: 'Task3', description: 'Buy oil', status: eStatus.todo, date: '8.12.19',
+    title: 'Task3', description: 'Buy oil', status: eStatus.inprogress, date: '8.12.19',
   },
   {
-    title: 'Task2', description: 'Buy bread', status: eStatus.todo, date: '16.12.19',
+    title: 'Task2', description: 'Buy bread', status: eStatus.done, date: '16.12.19',
   },
   {
-    title: 'Task1', description: 'Buy water', status: eStatus.todo, date: '3.12.19',
+    title: 'Task1', description: 'Buy water', status: eStatus.done, date: '3.12.19',
   },
 ];
 
@@ -64,6 +70,8 @@ const tasksDef: ITask[] = [
   },
 })
 export default class ContentTasks extends Vue {
+  enumStatus: Object = eStatus;
+
   title: string = '';
 
   description: string = '';
@@ -153,6 +161,11 @@ export default class ContentTasks extends Vue {
         span {
           font-size: 0.8rem;
           margin: 0 0.5rem;
+          flex-wrap: wrap;
+        }
+        select {
+          flex-wrap: wrap;
+          width: 5rem;
         }
         button {
           margin: 0 0.5rem;

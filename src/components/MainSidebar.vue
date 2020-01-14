@@ -27,7 +27,6 @@
         li
           a(href='#') Notifications
           span.count-img {{ countImg }}
-    .div
 </template>
 
 
@@ -60,6 +59,7 @@ export default class MainSidebar extends Vue {
 
   tasksCompleted(): void {
     if (this.$store.state.countOpenTasks > 0) {
+      // eslint-disable-next-line
       if (window.confirm('Are you sure you want to change the number of tasks?')) {
         this.$store.state.countCompletedTasks += 1;
         this.$store.state.countOpenTasks -= 1;
