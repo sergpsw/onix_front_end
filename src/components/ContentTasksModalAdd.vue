@@ -50,11 +50,6 @@ export default class ContentTasksModalAdd extends Vue {
       this.$store.dispatch('createTask', newTask);
       this.title = '';
       this.description = '';
-      // const blinkDescrip = this.$refs.animBlink as Array<any>;
-      // blinkDescrip[0].classList.add('blinking');
-      // setTimeout(() => {
-      //   blinkDescrip[0].classList.remove('blinking');
-      // }, 2000);
     }
   }
 }

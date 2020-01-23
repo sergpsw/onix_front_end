@@ -91,13 +91,26 @@ export default class ContentTasks extends Vue {
     }
   }
 
-  mounted() {
+  animatAddTask() {
+    const blinkDescrip = this.$refs.animBlink as Array<any>;
+    blinkDescrip[0].classList.add('blinking');
+    setTimeout(() => {
+      blinkDescrip[0].classList.remove('blinking');
+    }, 2000);
+  }
+
+  animatLoadTask() {
     const zoomTitle = this.$refs.animZoom as Array<any>;
     for (let i = 0; i < zoomTitle.length; i += 1) {
       setTimeout(() => {
         zoomTitle[i].classList.add('zooming');
       }, 500 * i);
     }
+  }
+
+  mounted() {
+    this.animatLoadTask();
+    // this.animatAddTask();
   }
 }
 </script>
