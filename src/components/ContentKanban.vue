@@ -2,84 +2,113 @@
   .container-tabl
     ul
       li.head To Do
-      li(
+      li.block-todo(
         v-for="(task, index) in allTasks"
-        :key="index"
-        v-if="task.status === 'todo'") {{ task.title }} - {{ task.date }}
+        :key="index")
+        span(
+          v-if="task.status === 'todo'") {{ task.title }} - {{ task.date }}
+        p.ellipsis(
+          @click="activeModalDetails(index)") ...
     ul
       li.head In Progress
-      li(
+      li.block-inprogress(
         v-for="(task, index) in allTasks"
-        :key="index"
-        v-if="task.status === 'in progress'") {{ task.title }} - {{ task.date }}
+        :key="index")
+        span(v-if="task.status === 'in progress'") {{ task.title }} - {{ task.date }}
+        p.ellipsis(
+          @click="activeModalDetails(index)") ...
     ul
       li.head Done
-      li(
+      li.block-done(
         v-for="(task, index) in allTasks"
-        :key="index"
-        v-if="task.status === 'done'") {{ task.title }} - {{ task.date }}
+        :key="index")
+        span(
+          v-if="task.status === 'done'") {{ task.title }} - {{ task.date }}
+        p.ellipsis(
+          @click="activeModalDetails(index)") ...
+    ContentTasksModalDetails(
+      v-show="isModalDetails"
+      @closeModal="isModalDetails = false"
+      :detailsTask="detailsTask")
 </template>
 
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { mapState } from 'vuex';
 import { ITask, eStatus } from '@/types/tasks';
+import ContentTasksModalDetails from '@/components/ContentTasksModalDetails.vue';
 
-const tasksDef: ITask[] = [
-  {
-    title: 'Task4', description: 'Buy vegetables', status: eStatus.inprogress, date: '4.12.19',
-  },
-  {
-    title: 'Task3', description: 'Buy oil', status: eStatus.inprogress, date: '8.12.19',
-  },
-  {
-    title: 'Task2', description: 'Buy bread', status: eStatus.done, date: '16.12.19',
-  },
-  {
-    title: 'Task1', description: 'Buy water', status: eStatus.done, date: '3.12.19',
-  },
-];
 
 @Component({
   name: 'ContentKanban',
+  components: {
+    ContentTasksModalDetails,
+  },
   computed: {
+    ...mapState([
+      'tasks',
+    ]),
     allTasks() {
-      return this.$store.getters.allTasks.concat(tasksDef);
+      return this.$store.getters.allTasks;
     },
   },
 })
 
-export default class ContentTasks extends Vue {}
+export default class ContentKanban extends Vue {
+  @Prop() detailsTask!: ITask;
+
+  isModalDetails = this.$store.state.isModalDetails;
+
+  activeModalDetails(index: number): void {
+    this.detailsTask = this.$store.getters.taskById(index);
+    this.isModalDetails = true;
+  }
+}
 </script>
 
 
 <style scoped lang="less">
   .container-tabl {
+    background-color: #fff;
     display: flex;
     justify-content: center;
     height: min-content;
+    border-radius: 5px;
+    margin: 1.5rem 0;
+    padding: 0 .8rem;
     ul {
-      width: 100px;
+      width: 250px;
       display: flex;
       flex-direction: column;
       list-style-type: none;
-      border: solid 1px #000;
+      border: solid 1px black;
       padding: 0;
       li {
         height: 2.5rem;
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        border-bottom: solid 1px #000;
+        justify-content: center;
         padding: .2rem 0;
-      }
-      li:last-child {
-        border-bottom: none;
       }
       .head {
         display: flex;
         justify-content: center;
         font-size: 1rem;
+        text-decoration: underline;
+      }
+      .block-todo {
+        color: red;
+      }
+      .block-inprogress {
+        color: orange;
+      }
+      .block-done {
+        color: green;
+      }
+      .ellipsis {
+        font-size: 1.2rem;
+        margin: 0 0 0.5rem 0.5rem;
       }
     }
     ul:nth-child(1), ul:nth-child(2) {
