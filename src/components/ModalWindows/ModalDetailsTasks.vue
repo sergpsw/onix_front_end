@@ -36,16 +36,17 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { ITask, eStatus } from '@/types/tasks';
 
 @Component({
-  name: 'ContentTasksModalDetails',
-  computed: {
-    allTasks() {
-      return this.$store.getters.allTasks;
-    },
-  },
+  name: 'ModalDetailsTasks',
 })
 
-export default class ContentTasksModalDetails extends Vue {
+export default class ModalDetailsTasks extends Vue {
   @Prop() detailsTask!: ITask;
+
+  @Prop() taskid!: number;
+
+  taskTitle: string = this.detailsTask.title;
+
+  taskDescription: string = this.detailsTask.description;
 
   isEditTask: boolean = false;
 
@@ -59,8 +60,8 @@ export default class ContentTasksModalDetails extends Vue {
     if (this.nameButton === 'Edit') {
       this.editTask();
     } else if (this.nameButton === 'Cancel') {
-      this.$store.getters.allTasks.title = this.$store.getters.allTasks.title;
-      this.$store.getters.allTasks.description = this.$store.getters.allTasks.description;
+      // this.taskTitle = '';
+      // this.taskDescription = '';
       this.isEditTask = false;
       this.isChangedTask = false;
       this.isButtonSave = false;
@@ -80,13 +81,21 @@ export default class ContentTasksModalDetails extends Vue {
   }
 
   saveTask(): void {
-    this.$store.getters.allTasks.title = this.detailsTask.title;
-    this.$store.getters.allTasks.description = this.detailsTask.description;
-    this.isEditTask = false;
-    this.isChangedTask = false;
-    this.isButtonSave = false;
-    this.nameButton = 'Edit';
-    this.$emit('closeModal');
+    if (this.nameButton === 'Cancel') {
+      this.$store.dispatch('editedTask', {
+        id: this.taskid,
+        title: this.taskTitle,
+        description: this.taskDescription,
+      });
+      this.isEditTask = false;
+      this.isChangedTask = false;
+      this.isButtonSave = false;
+      this.nameButton = 'Edit';
+      this.$emit('closeModal');
+    } else {
+      this.taskTitle = this.taskTitle;
+      this.taskDescription = this.taskDescription;
+    }
   }
 
   close(): void {
@@ -123,6 +132,10 @@ export default class ContentTasksModalDetails extends Vue {
         li {
           display: flex;
           align-items: center;
+          padding: 0.2rem;
+          margin-bottom: 0.1rem;
+          background-color: rgb(252, 246, 246);
+          border-radius: 5px;
           h4 {
             font-size: 0.9rem;
             margin: 0 2rem 0 0;
@@ -140,6 +153,7 @@ export default class ContentTasksModalDetails extends Vue {
       align-items: center;
       button {
         width: 65px;
+        background-color: rgb(240, 235, 235);
         border-radius: 5px;
         padding: 0.2rem 0;
         font-size: 0.65rem;
@@ -148,20 +162,9 @@ export default class ContentTasksModalDetails extends Vue {
         margin: 0.2rem 0 0.2rem 2.5rem;
       }
     }
-    .modal-mask {
-      position: fixed;
-      z-index: 99;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, .5);
-      display: table;
-      transition: opacity .3s ease;
-    }
   .modal-wrapper {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: middle;;
   }
   .modal-container {
     width: 300px;
@@ -172,6 +175,7 @@ export default class ContentTasksModalDetails extends Vue {
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+    z-index: 999;
   }
   .modal-leave-active {
     opacity: 0;

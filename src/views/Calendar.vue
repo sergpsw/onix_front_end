@@ -1,14 +1,14 @@
 <template lang="pug">
-  ContentComingSoon
+  ContentCalendar
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ContentComingSoon from '@/components/ContentComingSoon.vue';
+import ContentCalendar from '@/components/ContentCalendar.vue';
 
 @Component({
   components: {
-    ContentComingSoon,
+    ContentCalendar,
   },
 })
 export default class Calendar extends Vue {}

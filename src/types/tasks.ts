@@ -2,7 +2,7 @@ export interface ITask {
   id?: string | number;
   title: string;
   description: string;
-  date?: string;
+  dateTime?: Date;
   status: eStatus,
 }
 

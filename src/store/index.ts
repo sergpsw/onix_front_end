@@ -28,6 +28,24 @@ export default new Vuex.Store({
       state.countCompletedTasks += 1;
       localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
+    editedTask(state, { id, title, description }) {
+      const editTasks: ITask[] = state.tasks.concat();
+      const idx: any = editTasks.find((task:any) => task.id === id);
+      const task = editTasks[idx];
+      tasks[idx] = { ...task, title, description };
+      state.tasks = editTasks;
+      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+    },
+    updateDateTime(state, { id, dateTime }) {
+      const updTasks: ITask[] = state.tasks.concat();
+      const idx: any = updTasks.find((task:any) => task.id === id);
+      const task = updTasks[idx];
+      const status: any = new Date(dateTime) > new Date() ? 'in progress' : 'to do';
+      // const dateTime2: string = (dateTime).format('dd MM YYYY');
+      tasks[idx] = { ...task, status, dateTime };
+      state.tasks = updTasks;
+      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+    },
   },
   actions: {
     createTask({ commit }, newTask) {
@@ -36,29 +54,22 @@ export default new Vuex.Store({
     deleteTask({ commit }, id) {
       commit('deleteTask', id);
     },
+    editedTask({ commit }, payload) {
+      commit('editedTask', payload);
+    },
+    updateDateTime({ commit }, payload) {
+      commit('updateDateTime', payload);
+    },
   },
   modules: {
   },
   getters: {
-    allTasks(state) {
-      return state.tasks;
-    },
-    countCompletedTasks(state) {
-      return state.countCompletedTasks;
-    },
-    countOpenTasks(state) {
-      return state.tasks.length;
-    },
-    taskById(state) {
-      // eslint-disable-next-line
-      return (id) => {
-        return state.tasks[id];
-      };
-      // return id => {
-      //   return state.tasks.find(el => {
-      //     return el.id === id;
-      //   });
-      // };
-    },
+    allTasks: state => state.tasks,
+    countCompletedTasks: state => state.countCompletedTasks,
+    countOpenTasks: state => state.tasks.length,
+    taskById: state => (id:number) => state.tasks.find((task:ITask) => task.id === id),
+    taskTodo: state => state.tasks.filter((task:ITask) => task.status === 'todo'),
+    taskInprogress: state => state.tasks.filter((task:ITask) => task.status === 'in progress'),
+    taskDone: state => state.tasks.filter((task:ITask) => task.status === 'done'),
   },
 });

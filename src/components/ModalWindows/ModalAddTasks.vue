@@ -1,15 +1,19 @@
 <template lang="pug">
   .container-modaladd
+    button.btn-close(
+      @click="$emit('closeModalAdd')")
     h3 Create task
     form.container-modaladd-form(
       @submit.prevent="submit")
       input#title(
         type="description"
         placeholder="Title task"
+        maxlength="32"
         v-model="title")
       label(for="title")
       textarea#text(
         placeholder="Text task"
+        maxlength="768"
         v-model="description")
       label(for="description")
       label(for="status")
@@ -21,35 +25,39 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { mapState } from 'vuex';
 import { ITask, eStatus } from '@/types/tasks';
 
 @Component({
-  name: 'ContentTasksModalAdd',
-  computed: {
-    ...mapState([
-      'tasks',
-    ]),
-  },
+  name: 'ModalAddTasks',
 })
 
-export default class ContentTasksModalAdd extends Vue {
+export default class ModalAddTasks extends Vue {
   title: string = '';
 
   description: string = '';
 
+  dateTime: any = null;
+
+  loadDateTime() {
+    const date: string = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
+    this.dateTime = date;
+  }
+
   submit() {
+    this.loadDateTime();
     const newTask = {
-      id: this.$store.state.taskId + 1,
+      id: Date.now(),
       title: this.title,
       description: this.description,
-      date: '10.10.2020',
+      dateTime: this.dateTime,
       status: eStatus.todo,
     };
     if (this.title && this.description) {
       this.$store.dispatch('createTask', newTask);
       this.title = '';
       this.description = '';
+      this.dateTime = '';
+      this.$emit('animatAddTask');
     }
   }
 }
@@ -64,9 +72,23 @@ export default class ContentTasksModalAdd extends Vue {
     min-width: 300px;
     max-width: 500px;
     height: min-content;
-    background-color: #fff;
+    background-color:rgb(214, 209, 209);
     border-radius: 5px;
-    padding-bottom: 1rem;
+    margin: 0 0.5rem;
+    .btn-close {
+      align-self: flex-end;
+      padding: 0.5rem;
+      background-color: red;
+      background-image: url('~@/assets/img/close1.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 55%;
+      border-radius: 50%;
+      text-decoration: none;
+      border: none;
+      margin: -0.3rem -.1rem 0 0;
+      z-index: 20;
+    }
     h3 {
       margin: 0;
     }

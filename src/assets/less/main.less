@@ -33,9 +33,6 @@ body {
   
   /*Sidebar*/
   .sidebar {
-    //.d-flex;
-    //flex-direction: column;
-    //flex: 1 0 auto;
     height: 100%;
     min-width: 20%;//270px;
     background-color: @color-bg_sidebar;
@@ -203,7 +200,7 @@ body {
     margin-left: 20%;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     width: 80%;
     background-color: @color-bg_cont;
   }
@@ -211,15 +208,16 @@ body {
   /*Header*/
   .navbar {
     .d-flex;
-    // flex-grow: 0;
+    flex-grow: 0;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     width: 100%;
     height: min-content;
     &-title {
       .d-flex;
       justify-content: space-between;
       align-items: flex-end;
+      flex-wrap: wrap;
       margin: 0.5rem 0 0.5rem 1.8rem;
       &-left {
         .d-flex;
@@ -252,7 +250,7 @@ body {
           border-radius: 50%;
           border: none;
           color: #D8D8D8;
-          min-width: 1.8rem;
+          width: 1.8rem;
           height: 1.8rem;
           margin: 0.7rem 0 0 0.8rem;
           cursor: pointer;
@@ -262,7 +260,7 @@ body {
         .d-flex;
         justify-content: flex-end;
         margin-right: 0.5rem;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.6rem;
         &-photo {
           margin-right: 0.45rem;
           width: 1.9rem;
@@ -312,6 +310,7 @@ body {
       }
     }
     &-navigation {
+      width: 40%;
       ul {
         .link-style {
           content: '';

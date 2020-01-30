@@ -1,64 +1,144 @@
 <template lang="pug">
-  .container-tabl
-    ul
-      li.head To Do
-      li.block-todo(
-        v-for="(task, index) in allTasks"
-        :key="index")
-        span(
-          v-if="task.status === 'todo'") {{ task.title }} - {{ task.date }}
-        p.ellipsis(
-          @click="activeModalDetails(index)") ...
-    ul
-      li.head In Progress
-      li.block-inprogress(
-        v-for="(task, index) in allTasks"
-        :key="index")
-        span(v-if="task.status === 'in progress'") {{ task.title }} - {{ task.date }}
-        p.ellipsis(
-          @click="activeModalDetails(index)") ...
-    ul
-      li.head Done
-      li.block-done(
-        v-for="(task, index) in allTasks"
-        :key="index")
-        span(
-          v-if="task.status === 'done'") {{ task.title }} - {{ task.date }}
-        p.ellipsis(
-          @click="activeModalDetails(index)") ...
-    ContentTasksModalDetails(
-      v-show="isModalDetails"
-      @closeModal="isModalDetails = false"
-      :detailsTask="detailsTask")
+  .container-kanban
+    .container-tabl-filte
+      input(
+        v-model="titleFilter"
+        placeholder="Enter name task")
+      button(
+        @click="statusFilter = ''") Status filter clear
+    .container-kanban-tabl
+      ul
+        li.head(
+          @click="statusFilter = 'todo'") To Do
+          .countStatus {{ taskTodo }}
+        Draggable(
+          v-model='myList')
+          li.body(
+            v-for="(task, index) in filteredTasks"
+            :key="task.id"
+            v-if="task.status === 'todo'"
+            :class="styleTodo")
+            .div
+            span(
+              @click="activeModalDetails(task.id)") {{ task.title }}
+            span {{ task.dateTime | formatDate }}
+      ul
+        li.head(
+          @click="statusFilter = 'in progress'") In Progress
+          .countStatus {{ taskInprogress }}
+        Draggable(
+          v-model='myTasksList')
+          li.body(
+            v-for="(task, index) in filteredTasks"
+            :key="index"
+            v-if="task.status === 'in progress'"
+            :class="styleInprogress")
+            .div
+            span(
+              @click="activeModalDetails(task.id)") {{ task.title }}
+            span {{ task.dateTime | formatDate }}
+      ul
+        li.head(
+          @click="statusFilter = 'done'") Done
+          .countStatus {{ taskDone }}
+        Draggable(
+          v-model='myTasksList')
+          li.body(
+            v-for="(task, index) in filteredTasks"
+            :key="index"
+            v-if="task.status === 'done'"
+            :class="styleDone")
+            .div
+            span(
+              @click="activeModalDetails(task.id)") {{ task.title }}
+            span {{ task.dateTime | formatDate }}
+      ModalDetailsTasks(
+        v-show="isModalDetails"
+        @closeModal="isModalDetails = false"
+        :detailsTask="detailsTask")
 </template>
 
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { mapState } from 'vuex';
+import mixins from 'vue-class-component';
+import Datepicker from 'vuejs-datepicker';
+import draggable from 'vuedraggable';
+import ModalDetailsTasks from '@/components/ModalWindows/ModalDetailsTasks.vue';
 import { ITask, eStatus } from '@/types/tasks';
-import ContentTasksModalDetails from '@/components/ContentTasksModalDetails.vue';
+import MainMixin from '@/mixins/';
 
 
 @Component({
   name: 'ContentKanban',
   components: {
-    ContentTasksModalDetails,
+    ModalDetailsTasks,
+    Datepicker,
+    Draggable: draggable,
   },
   computed: {
-    ...mapState([
-      'tasks',
-    ]),
     allTasks() {
       return this.$store.getters.allTasks;
     },
+    taskTodo() {
+      return this.$store.getters.taskTodo.length;
+    },
+    taskInprogress() {
+      return this.$store.getters.taskInprogress.length;
+    },
+    taskDone() {
+      return this.$store.getters.taskDone.length;
+    },
+    // myList: {
+    //   get() {
+    //     return this.$store.state.myList;
+    //   },
+    //   set(value) {
+    //     this.$store.commit('updateList', value);
+    //   },
+    // },
   },
 })
 
-export default class ContentKanban extends Vue {
-  @Prop() detailsTask!: ITask;
+export default class ContentKanban extends mixins(MainMixin) {
+  detailsTask: ITask = {} as ITask;
 
-  isModalDetails = this.$store.state.isModalDetails;
+  enumStatus: Object = eStatus;
+
+  isModalDetails: boolean = false;
+
+  styleTodo: string = 'block-todo';
+
+  styleInprogress: string = 'block-inprogress';
+
+  styleDone: string = 'block-done';
+
+  statusFilter: string = '';
+
+  titleFilter: string = '';
+
+  get filteredTasks(): ITask[] {
+    if (this.statusFilter) {
+      if (this.statusFilter === 'todo') {
+        return this.$store.getters.taskTodo;
+      }
+      if (this.statusFilter === 'in progress') {
+        return this.$store.getters.taskInprogress;
+      }
+      if (this.statusFilter === 'done') {
+        return this.$store.getters.taskDone;
+      }
+    }
+    if (this.titleFilter) {
+      // return this.$store.getters.allTasks.filter((title: string) => {
+      //   return title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1;
+      // });
+      return this.$store.getters.allTasks.filter(
+        (title: string) => (title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1),
+      );
+    }
+    return this.$store.getters.allTasks;
+  }
 
   activeModalDetails(index: number): void {
     this.detailsTask = this.$store.getters.taskById(index);
@@ -69,50 +149,106 @@ export default class ContentKanban extends Vue {
 
 
 <style scoped lang="less">
-  .container-tabl {
-    background-color: #fff;
+.container-kanban {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0;
+  .container-tabl-filter {
+    margin-bottom: .5rem;
+  }
+  .container-kanban-tabl {
+    background-color:rgb(241, 235, 235);
     display: flex;
     justify-content: center;
     height: min-content;
     border-radius: 5px;
-    margin: 1.5rem 0;
     padding: 0 .8rem;
     ul {
-      width: 250px;
+      width: 200px;
       display: flex;
       flex-direction: column;
       list-style-type: none;
-      border: solid 1px black;
+      background-color:rgb(214, 209, 209);
+      border-radius: 5px;
       padding: 0;
+      margin-right: 0.5rem;
       li {
         height: 2.5rem;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: .2rem 0;
+        background-color:rgb(236, 227, 227);
+        border-radius: 5px;
+        margin: .4rem .2rem;
+        padding: .2rem;
+        // cursor: pointer;
+      }
+      .body {
+        div {
+          border-radius: 5px;
+          width: 10%;
+          height: 10%;
+          align-self: flex-start;
+        }
       }
       .head {
-        display: flex;
+        flex-direction: row;
         justify-content: center;
         font-size: 1rem;
-        text-decoration: underline;
+        background-color:rgb(252, 242, 220);
+        .countStatus {
+          background-color: rgb(238, 220, 57);
+          border-radius: 50%;
+          font-size: .7rem;
+          margin: 0 0 0.15rem 0.1rem;
+          padding: 0 0.3rem;
+        }
+      }
+      span {
+        overflow: auto;
+        cursor: pointer;
       }
       .block-todo {
-        color: red;
+        div{
+          background-color: rgb(223, 82, 82);
+        }
       }
       .block-inprogress {
-        color: orange;
+        div{
+          background-color: rgb(226, 168, 59);
+        }
       }
       .block-done {
-        color: green;
-      }
-      .ellipsis {
-        font-size: 1.2rem;
-        margin: 0 0 0.5rem 0.5rem;
+        div{
+          background-color:rgb(53, 141, 53);
+        }
       }
     }
-    ul:nth-child(1), ul:nth-child(2) {
-      border-right: none;
+    // ul:nth-child(3) {
+    //   margin-right: 0;
+    // }
+  }
+}
+
+@media screen and (max-width:  768px) {
+  .container-kanban {
+    .container-kanban-tabl {
+      ul {
+        width: 100px;
+        li {
+          height: 3.5rem;
+        }
+        .body {
+          div {
+            width: 17%;
+          }
+        }
+        .head{
+          font-size: 0.8rem;
+        }
+      }
     }
   }
+}
 </style>

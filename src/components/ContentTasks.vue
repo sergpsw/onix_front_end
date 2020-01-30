@@ -1,53 +1,56 @@
 <template lang="pug">
   .container-tasks
     h2(
-      @click="activeModalAdd"
-      :class="headingCreateForm") {{ headerAddTask }}
-    ContentTasksModalAdd(
-      :$refs.animBlink="animBlink"
-      v-show="isModalAdd")
-    ContentTasksModalDetails(
+      @click="activeModalAdd") {{ headerAddTask }}
+    ModalAddTasks(
+      v-show="isModalAdd"
+      @closeModalAdd="activeModalAdd"
+      @animatAddTask='(...args)=>this.animatAddTask(...args)')
+    ModalDetailsTasks(
       v-show="isModalDetails"
       @closeModal="isModalDetails = false"
-      :detailsTask="detailsTask")
+      :detailsTask="detailsTask"
+      :task.id="taskid")
     ul.box-block-style
       li(
         v-for="(task, index) in allTasks"
-        :key="index"
+        :key="task.id"
         ref='animBlink')
-        .container-tasks-left
+        .container-tasks-head
           h4(
-            ref='animZoom') {{ task.title }}
+            ref='animZoom'
+            @click="activeModalDetails(task.id)") {{ task.title }}
+          button.deleteBtn(
+            @click="deleteTask(index)")
+        .container-tasks-body
           p(
-            @click="activeModalDetails(index)") {{ task.description }}
-        .container-tasks-right
-          span {{ task.date }}
-          .div
-            select
-              option(
-                v-if="task.status === 'todo'") {{ enumStatus.todo }}
-              option(
-                v-if="task.status === 'in progress'") {{ enumStatus.inprogress }}
-              option(
-                v-if="task.status === 'done'") {{ enumStatus.done }}
-            button.deleteBtn(
-              @click="deleteTask(index)")
+            @click="activeModalDetails(task.id)") {{ task.description }}
+        .container-tasks-footer
+          span {{ task.status }}
+          Datepicker.datapicker(
+            v-model="task.dateTime"
+            @input="changeDate(task)"
+            placeholder="Date of completion")
 </template>
 
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import mixins from 'vue-class-component';
+import Datepicker from 'vuejs-datepicker';
 import { mapState } from 'vuex';
 import { ITask, eStatus } from '@/types/tasks';
-import ContentTasksModalAdd from '@/components/ContentTasksModalAdd.vue';
-import ContentTasksModalDetails from '@/components/ContentTasksModalDetails.vue';
+import ModalAddTasks from '@/components/ModalWindows/ModalAddTasks.vue';
+import ModalDetailsTasks from '@/components/ModalWindows/ModalDetailsTasks.vue';
+import MainMixin from '@/mixins/';
 
 
 @Component({
   name: 'ContentTasks',
   components: {
-    ContentTasksModalAdd,
-    ContentTasksModalDetails,
+    ModalAddTasks,
+    ModalDetailsTasks,
+    Datepicker,
   },
   computed: {
     ...mapState([
@@ -58,18 +61,16 @@ import ContentTasksModalDetails from '@/components/ContentTasksModalDetails.vue'
     },
   },
 })
-export default class ContentTasks extends Vue {
-  @Prop() detailsTask!: ITask;// error
+export default class ContentTasks extends mixins(MainMixin) {
+  detailsTask: ITask = {} as ITask;
 
   enumStatus: Object = eStatus;
 
-  isModalDetails = this.$store.state.isModalDetails;
+  isModalDetails: boolean = false;
 
   isModalAdd: boolean = false;
 
-  headerAddTask: string = '+ Add task';
-
-  headingCreateForm: string = 'formCreateDeactive';
+  headerAddTask: string = '+ Add New Task';
 
   deleteTask(index: number): void {
     this.$store.dispatch('deleteTask', index);
@@ -84,18 +85,20 @@ export default class ContentTasks extends Vue {
     this.isModalAdd = !this.isModalAdd;
     if (this.isModalAdd) {
       this.headerAddTask = '';
-      this.headingCreateForm = 'formCreateActive';
     } else {
-      this.headerAddTask = '+ Add task';
-      this.headingCreateForm = 'formCreateDeactive';
+      this.headerAddTask = '+ Add New Task';
     }
   }
 
+  changeDate(el: any) {
+    this.$store.dispatch('updateDateTime', { id: el.id, dateTime: el.dateTime });
+  }
+
   animatAddTask() {
-    const blinkDescrip = this.$refs.animBlink as Array<any>;
-    blinkDescrip[0].classList.add('blinking');
+    const blinkTaskBlock = this.$refs.animBlink as Array<any>;
+    blinkTaskBlock[0].classList.add('blinking');
     setTimeout(() => {
-      blinkDescrip[0].classList.remove('blinking');
+      blinkTaskBlock[0].classList.remove('blinking');
     }, 2000);
   }
 
@@ -110,7 +113,6 @@ export default class ContentTasks extends Vue {
 
   mounted() {
     this.animatLoadTask();
-    // this.animatAddTask();
   }
 }
 </script>
@@ -128,75 +130,62 @@ export default class ContentTasks extends Vue {
   border-radius: 5px;
   margin: 1.8rem 0 1rem 0;
   padding-bottom: 1rem;
-  h3 {
-    align-self: flex-start;
-    text-decoration: underline;
-    margin: -1.2rem 0 0 2.3rem;
-  }
   h2 {
     align-self: flex-end;
     text-decoration: underline;
     font-size: 0.9rem;
     margin-bottom: 0;
-  }
-  .formCreateDeactive {
     margin-right: 1.8rem;
-  }
-  .formCreateActive {
-    padding: 0.5rem;
-    background-color: red;
-    background-image: url('../assets/img/close1.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 55%;
-    border-radius: 50%;
-    text-decoration: none;
-    margin: 1rem 4.4rem -1.1rem 0;
-    z-index: 20;
+    cursor: pointer;
   }
   ul {
+    width: 90%;
     list-style-type: none;
-    padding-right: 1.5rem;
+    padding-right: 2.4rem;
     li {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       border-bottom: solid 1px #000;
-      .container-tasks-left {
+      background-color:rgb(218, 217, 214);
+      border-radius: 5px;
+      padding: 0 0.5rem;
+      margin-bottom: 0.7rem;
+      .container-tasks-head {
         display: flex;
-        justify-self: flex-start;
-        flex-wrap: wrap;
-        width: 85%;
+        align-items: flex-start;
+        justify-content: space-between;
         h4 {
           font-size: 0.95rem;
+          cursor: pointer;
+          margin: .2rem 0 0 0;
         }
+        button {
+          margin: -0.2rem -0.6rem 0 0;
+          cursor: pointer;
+        }
+      }
+      .container-tasks-body {
         p {
-          align-self: center;
           max-width: 350px;
-          max-height: 80px;
           max-height: 80px;
           overflow: auto;
           margin-left: 1.2rem;
           font-size: 0.95rem;
+          cursor: pointer;
         }
       }
-      .container-tasks-right {
+      .container-tasks-footer {
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        flex-wrap: wrap;
+        margin: 0 0.5rem 0.7rem 0;
         span {
-          font-size: 0.8rem;
-          margin: 0 0.5rem;
+          font-weight: bolder;
+          text-decoration: underline;
         }
-        div {
-          display: flex;
-          align-items: center;
-          select {
-            width: 5rem;
-          }
-          button {
-            margin: 0 0.5rem;
-          }
+        .datapicker {
+          margin-left: .5rem;
         }
       }
     }
@@ -233,35 +222,20 @@ export default class ContentTasks extends Vue {
     }
     ul {
       li {
-        .container-tasks-right {
-          flex-wrap: wrap;
-          span {
-            margin-right: 3rem;
+        .container-tasks-head {
+          h4 {
+            font-size: 0.8rem;
           }
         }
-      }
-    }
-  }
-}
-@media screen and (max-width: 320px) {
-  .container-tasks {
-    min-width: 200px;
-    ul {
-      li {
-        .container-tasks-left {
-          width: 90%;
-          h4 {
-            font-size: 0.7rem;
-          }
+        .container-tasks-body {
           p {
             font-size: 0.7rem;
           }
         }
-        .container-tasks-right {
-          align-self: flex-start;
-          margin-top: 1rem;
+        .container-tasks-footer {
           span {
-            font-size: 0.65rem;
+            font-size: .7rem;
+            margin-bottom: 0.2rem;
           }
         }
       }

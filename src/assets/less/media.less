@@ -22,14 +22,23 @@
       height: 1.2rem;
     }
     .sidebar {
-      position: fixed;
-      min-width: 80%;// !important;
-      display: none; 
+      min-width: 50%;
+      display: none;
+      &-header {
+        &-logo {
+          margin-left: 1.5rem;
+          &::before {
+            left: 1.9rem;
+          }
+        }
+      }
     }
     .wrap-flex-c {
       min-width: 90%;
-      height: 100vh;
       margin-left: 0;
+      // .navbar {
+      //   min-height: 20%;
+      // }
       &-container {
         justify-content: flex-end;
         &-box {
@@ -43,6 +52,7 @@
 @media screen and (max-width: 768px) {
   .wrapper {
     .sidebar {
+      min-width: 80%;
       &-menu {
         &-btn {
           font-size: 1rem;
@@ -52,15 +62,55 @@
     .wrap-flex-c {
       .navbar {
         &-title {
-          flex-direction: column;
-          align-items: center;
           justify-content: center;
+          margin: 0 0 0 1rem;
+          &-left {
+            margin: 0.5rem 0 0 0.5rem;
+            &-text {
+              font-size: 1.7rem;
+              &::before {
+                content: '';
+                width: 2rem;
+                height: 2rem;
+              }
+            }
+            &-btn {
+              width: 1.6rem;
+              height: 1.6rem;
+              margin: 0.4rem 0 0 0.7rem;;
+            }
+          }
           &-right {
-            margin: 1rem 0 0.5rem 0;
+            margin: 0.5rem 0 0.5rem 0.5rem;
           }
         }
-        &-navigation>ul {
-          justify-content: center;
+        &-navigation {
+          width: 100%;
+          margin: 0 auto;
+          ul{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 0;
+            .link-style {
+              background-color: #FFC200;
+            }
+            li {
+              margin-left: 1rem;
+              a {
+                &::after {
+                  width: min-content;
+                }
+              }
+              &:nth-child(1) {
+                margin-left: 0;
+              }
+              .activeLink {
+                font-weight: bolder;
+              }
+            }
+          }
         }
       }
       .container {
@@ -92,41 +142,36 @@
           &::before {
             width: 1.4rem;
             height: 1.4rem;
-            left: 1.8rem;
+            left: 2.1rem;
           }
         }
       }
     }
     .wrap-flex-c {
       .navbar {
+        min-height: 19%;
         &-title {
           &-left {
             &-text {
-              font-size: 1.7rem;
+              font-size: 1rem;
+              margin-left: 1.5rem;
               &::before {
                 content: '';
-                width: 2rem;
-                height: 2rem;
+                top: 0;
+                left: -2.9rem;
+                width: 1.5rem;
+                height: 1.5rem;
               }
+            }
+            &-btn {
+              width: 1.4rem;
+              height: 1.4rem;
+              margin: 0.05rem 0 0 1.3rem;
             }
           }
-        }
-        &-navigation>ul {
-          flex-direction: column;
-          li {
-            &:nth-child(1) {
-              margin-left: 3rem;
-            }
-            margin: 0 0 0.5rem 3rem;
-            a {
-              font-size: 1.1rem;
-              &::after {
-                width: min-content;
-              }
-              &:hover::after {
-                transform: scaleX(1);
-              }
-            }
+          &-right {
+            margin-top: .7rem;
+            margin-bottom: .7rem;
           }
         }
       } 

@@ -16,6 +16,7 @@ export default {
   display: flex;
   flex: 1 0 auto;
   align-content: stretch;
+  min-height: 80%;//calc(100% - 200px);
   width: 100%;
   justify-content: center;
   background-color: rgb(241, 238, 232);
