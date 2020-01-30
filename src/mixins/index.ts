@@ -7,6 +7,9 @@ import { ITask } from '@/types/tasks';
     formatDate(date: number): string {
       return moment.utc(date).format('DD-MM-YYYY');
     },
+    snippetText(value: string): string {
+      return `${value.slice(0, 10)}...`;
+    },
   },
 })
 export default class MainMixin extends Vue {

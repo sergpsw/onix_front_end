@@ -1,11 +1,11 @@
 <template lang="pug">
   .container-kanban
-    .container-tabl-filte
+    .container-kanban-filter
       input(
         v-model="titleFilter"
         placeholder="Enter name task")
-      button(
-        @click="statusFilter = ''") Status filter clear
+      button.btn-clear(
+        @click="clearedFilter") Filter clear
     .container-kanban-tabl
       ul
         li.head(
@@ -20,7 +20,7 @@
             :class="styleTodo")
             .div
             span(
-              @click="activeModalDetails(task.id)") {{ task.title }}
+              @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
@@ -35,7 +35,7 @@
             :class="styleInprogress")
             .div
             span(
-              @click="activeModalDetails(task.id)") {{ task.title }}
+              @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
@@ -50,7 +50,7 @@
             :class="styleDone")
             .div
             span(
-              @click="activeModalDetails(task.id)") {{ task.title }}
+              @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ModalDetailsTasks(
         v-show="isModalDetails"
@@ -118,6 +118,7 @@ export default class ContentKanban extends mixins(MainMixin) {
   titleFilter: string = '';
 
   get filteredTasks(): ITask[] {
+    const self = this;
     if (this.statusFilter) {
       if (this.statusFilter === 'todo') {
         return this.$store.getters.taskTodo;
@@ -130,14 +131,16 @@ export default class ContentKanban extends mixins(MainMixin) {
       }
     }
     if (this.titleFilter) {
-      // return this.$store.getters.allTasks.filter((title: string) => {
-      //   return title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1;
-      // });
       return this.$store.getters.allTasks.filter(
-        (title: string) => (title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1),
+        (task: any) => (task.title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1),
       );
     }
     return this.$store.getters.allTasks;
+  }
+
+  clearedFilter() {
+    this.statusFilter = '';
+    this.titleFilter = '';
   }
 
   activeModalDetails(index: number): void {
@@ -154,10 +157,13 @@ export default class ContentKanban extends mixins(MainMixin) {
   flex-direction: column;
   align-items: center;
   margin: 1.5rem 0;
-  .container-tabl-filter {
+  &-filter {
     margin-bottom: .5rem;
+    .btn-clear {
+      margin-left: 0.8rem;
+    }
   }
-  .container-kanban-tabl {
+  &-tabl {
     background-color:rgb(241, 235, 235);
     display: flex;
     justify-content: center;
@@ -233,7 +239,7 @@ export default class ContentKanban extends mixins(MainMixin) {
 
 @media screen and (max-width:  768px) {
   .container-kanban {
-    .container-kanban-tabl {
+    &-tabl {
       ul {
         width: 100px;
         li {
