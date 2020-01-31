@@ -17,6 +17,10 @@
         v-model="description")
       label(for="description")
       label(for="status")
+      input#date(
+        type="date"
+        placeholder="Date"
+        v-model="dateTime")
       button(
         type="submit") Add Task
     hr
@@ -36,15 +40,9 @@ export default class ModalAddTasks extends Vue {
 
   description: string = '';
 
-  dateTime: any = null;
-
-  loadDateTime() {
-    const date: string = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
-    this.dateTime = date;
-  }
+  dateTime: string = '';
 
   submit() {
-    this.loadDateTime();
     const newTask = {
       id: Date.now(),
       title: this.title,
@@ -106,11 +104,15 @@ export default class ModalAddTasks extends Vue {
         max-height: 100px;
         margin: 0.3rem 0;
       }
+      #date {
+        width: 105px;
+      }
       button {
         background-color: #FFC200;
         border-radius: 5px;
         border: none;
         padding: 0.5rem;
+        margin-top: 0.3rem;
         font-size: 0.7rem;
         text-transform: uppercase;
         cursor: pointer;

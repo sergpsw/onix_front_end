@@ -1,18 +1,33 @@
 <template lang="pug">
   .container-kanban
     .container-kanban-filter
-      input(
-        v-model="titleFilter"
-        placeholder="Enter name task")
-      button.btn-clear(
-        @click="clearedFilter") Filter clear
+      .period
+        span Date filter
+        input(
+          type="date"
+          placeholder="Date from..."
+          v-model="fromDate")
+        input(
+          type="date"
+          placeholder="Date to..."
+          v-model="toDate")
+      .search
+        span Search
+        input(
+          v-model="titleFilter"
+          placeholder="Enter name task"
+          type="search")
+        button.btn-clear(
+          @click="clearedFilter") Clear all filters
     .container-kanban-tabl
       ul
         li.head(
           @click="statusFilter = 'todo'") To Do
           .countStatus {{ taskTodo }}
         Draggable(
-          v-model='myList')
+          group="cell"
+          v-model='copyTasks'
+          :move="moveOn")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="task.id"
@@ -27,7 +42,9 @@
           @click="statusFilter = 'in progress'") In Progress
           .countStatus {{ taskInprogress }}
         Draggable(
-          v-model='myTasksList')
+          group="cell"
+          v-model='copyTasks'
+          :move="moveOn")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
@@ -42,7 +59,9 @@
           @click="statusFilter = 'done'") Done
           .countStatus {{ taskDone }}
         Draggable(
-          v-model='myTasksList')
+          group="cell"
+          v-model='copyTasks'
+          :move="moveOn")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
@@ -89,19 +108,13 @@ import MainMixin from '@/mixins/';
     taskDone() {
       return this.$store.getters.taskDone.length;
     },
-    // myList: {
-    //   get() {
-    //     return this.$store.state.myList;
-    //   },
-    //   set(value) {
-    //     this.$store.commit('updateList', value);
-    //   },
-    // },
   },
 })
 
 export default class ContentKanban extends mixins(MainMixin) {
   detailsTask: ITask = {} as ITask;
+
+  copyTasks: ITask = this.$store.getters.allTasks;
 
   enumStatus: Object = eStatus;
 
@@ -116,6 +129,10 @@ export default class ContentKanban extends mixins(MainMixin) {
   statusFilter: string = '';
 
   titleFilter: string = '';
+
+  fromDate: string = '';
+
+  toDate: string = '';
 
   get filteredTasks(): ITask[] {
     const self = this;
@@ -132,8 +149,26 @@ export default class ContentKanban extends mixins(MainMixin) {
     }
     if (this.titleFilter) {
       return this.$store.getters.allTasks.filter(
-        (task: any) => (task.title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1),
+        (task: ITask) => (task.title.toLowerCase().indexOf(this.titleFilter.toLowerCase()) !== -1),
       );
+    }
+    if (this.fromDate || this.toDate) {
+      if (this.fromDate !== '' && this.toDate === '') {
+        return this.$store.getters.allTasks.filter(
+          (task: ITask) => (task.dateTime >= this.fromDate),
+        );
+      }
+      if (this.fromDate === '' && this.toDate !== '') {
+        return this.$store.getters.allTasks.filter(
+          (task: ITask) => (task.dateTime <= this.toDate),
+        );
+      }
+      if (this.fromDate !== '' && this.toDate !== '') {
+        return this.$store.getters.allTasks.filter(
+          (task: ITask) => ((task.dateTime >= this.fromDate)
+            && (task.dateTime <= this.toDate)),
+        );
+      }
     }
     return this.$store.getters.allTasks;
   }
@@ -141,11 +176,19 @@ export default class ContentKanban extends mixins(MainMixin) {
   clearedFilter() {
     this.statusFilter = '';
     this.titleFilter = '';
+    this.fromDate = '';
+    this.toDate = '';
   }
 
   activeModalDetails(index: number): void {
     this.detailsTask = this.$store.getters.taskById(index);
     this.isModalDetails = true;
+  }
+
+  moveOn() {
+    const tasks = this.copyTasks;
+    // eslint-disable-next-line
+    console.log(tasks);
   }
 }
 </script>
@@ -159,8 +202,31 @@ export default class ContentKanban extends mixins(MainMixin) {
   margin: 1.5rem 0;
   &-filter {
     margin-bottom: .5rem;
+    display: flex;
+    justify-content: center;
+    input {
+      width: 110px;
+      margin-bottom: 0.2rem;
+    }
+    .period {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.2rem 0.3rem;
+      background-color: rgb(230, 227, 214);
+      border-radius: 5px;
+    }
+    .search {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 0.5rem;
+      padding: 0.2rem 0.3rem;
+      background-color: rgb(230, 227, 214);
+      border-radius: 5px;
+    }
     .btn-clear {
-      margin-left: 0.8rem;
+      margin: 0.3rem 0;
     }
   }
   &-tabl {
@@ -225,11 +291,6 @@ export default class ContentKanban extends mixins(MainMixin) {
           background-color: rgb(226, 168, 59);
         }
       }
-      .block-done {
-        div{
-          background-color:rgb(53, 141, 53);
-        }
-      }
     }
     // ul:nth-child(3) {
     //   margin-right: 0;
@@ -253,6 +314,17 @@ export default class ContentKanban extends mixins(MainMixin) {
         .head{
           font-size: 0.8rem;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:  480px) {
+  .container-kanban {
+    &-filter {
+      flex-direction: column;
+      .search {
+        margin: 0.5rem 0 0 0;
       }
     }
   }

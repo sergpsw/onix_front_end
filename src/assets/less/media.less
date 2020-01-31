@@ -133,6 +133,39 @@
   }
 }
 
+@media screen and (max-width: 640px){
+ .wrapper {
+    .sidebar {
+      &-header {
+        min-height: 50px;
+        justify-content: space-around;
+        &-logo {
+          font-size: 1.1rem;
+          margin-left: 3.5rem;
+          &::before {
+            top: .9rem;
+            left: 3.5rem;
+          }
+          &-search {
+            &::before {
+              left: 0;
+            }
+          }
+        }
+      }
+      &-person, &-tasks {
+        min-height: 70px;
+        margin-bottom:  0rem;
+      }
+      &-menu {
+        &-nav {
+          line-height: 1.8;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 480px) {
   .wrapper {
     .sidebar {
@@ -149,7 +182,7 @@
     }
     .wrap-flex-c {
       .navbar {
-        min-height: 19%;
+        min-height: 20%;
         &-title {
           &-left {
             &-text {
@@ -172,6 +205,15 @@
           &-right {
             margin-top: .7rem;
             margin-bottom: .7rem;
+          }
+        }
+        &-navigation {
+          ul {
+            li {
+              a {
+                font-size: .9rem;
+              }
+            }
           }
         }
       } 
