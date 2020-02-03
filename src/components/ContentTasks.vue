@@ -4,33 +4,33 @@
       @click="activeModalAdd") {{ headerAddTask }}
     ModalAddTasks(
       v-show="isModalAdd"
-      @closeModalAdd="activeModalAdd"
-      @animatAddTask='(...args)=>this.animatAddTask(...args)')
+      @closeModalAdd="activeModalAdd")
     ModalDetailsTasks(
       v-show="isModalDetails"
       @closeModal="isModalDetails = false"
       :detailsTask="detailsTask"
       :task.id="taskid")
     ul.box-block-style
-      li(
-        v-for="(task, index) in allTasks"
-        :key="task.id"
-        ref='animBlink')
-        .container-tasks-head
-          h4(
-            ref='animZoom'
-            @click="activeModalDetails(task.id)") {{ task.title }}
-          button.deleteBtn(
-            @click="deleteTask(index)")
-        .container-tasks-body
-          p(
-            @click="activeModalDetails(task.id)") {{ task.description }}
-        .container-tasks-footer
-          span {{ task.status }}
-          Datepicker.datapicker(
-            v-model="task.dateTime"
-            @input="changeDate(task)"
-            placeholder="Date of completion")
+      transition-group(name="allTasks")
+        li(
+          v-for="(task, index) in allTasks"
+          :key="task.id"
+          ref='animBlink')
+          .container-tasks-head
+            h4(
+              ref='animZoom'
+              @click="activeModalDetails(task.id)") {{ task.title }}
+            button.deleteBtn(
+              @click="deleteTask(index)")
+          .container-tasks-body
+            p(
+              @click="activeModalDetails(task.id)") {{ task.description }}
+          .container-tasks-footer
+            span {{ task.status }}
+            Datepicker.datapicker(
+              v-model="task.dateTime"
+              @input="changeDate(task)"
+              placeholder="Date of completion")
 </template>
 
 
@@ -38,11 +38,11 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import mixins from 'vue-class-component';
 import Datepicker from 'vuejs-datepicker';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { ITask, eStatus } from '@/types/tasks';
 import ModalAddTasks from '@/components/ModalWindows/ModalAddTasks.vue';
 import ModalDetailsTasks from '@/components/ModalWindows/ModalDetailsTasks.vue';
-import MainMixin from '@/mixins/';
+import MainMixin from '@/mixins/MainMixin';
 
 
 @Component({
@@ -56,9 +56,9 @@ import MainMixin from '@/mixins/';
     ...mapState([
       'tasks',
     ]),
-    allTasks() {
-      return this.$store.getters.allTasks;
-    },
+    ...mapGetters([
+      'allTasks',
+    ]),
   },
 })
 export default class ContentTasks extends mixins(MainMixin) {
@@ -94,14 +94,6 @@ export default class ContentTasks extends mixins(MainMixin) {
     this.$store.dispatch('updateDateTime', { id: el.id, dateTime: el.dateTime });
   }
 
-  animatAddTask() {
-    const blinkTaskBlock = this.$refs.animBlink as Array<any>;
-    blinkTaskBlock[0].classList.add('blinking');
-    setTimeout(() => {
-      blinkTaskBlock[0].classList.remove('blinking');
-    }, 2000);
-  }
-
   animatLoadTask() {
     const zoomTitle = this.$refs.animZoom as Array<any>;
     for (let i = 0; i < zoomTitle.length; i += 1) {
@@ -119,127 +111,128 @@ export default class ContentTasks extends mixins(MainMixin) {
 
 
 <style scoped lang="less">
-.container-tasks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 300px;
-  max-width: 500px;
-  height: min-content;
-  background-color: #fff;
-  border-radius: 5px;
-  margin: 1.8rem 0 1rem 0;
-  padding-bottom: 1rem;
-  h2 {
-    align-self: flex-end;
-    text-decoration: underline;
-    font-size: 0.9rem;
-    margin-bottom: 0;
-    margin-right: 1.8rem;
-    cursor: pointer;
-  }
-  ul {
-    width: 90%;
-    list-style-type: none;
-    padding-right: 2.4rem;
-    li {
-      display: flex;
-      flex-direction: column;
-      border-bottom: solid 1px #000;
-      background-color:rgb(218, 217, 214);
-      border-radius: 5px;
-      padding: 0 0.5rem;
-      margin-bottom: 0.7rem;
-      .container-tasks-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        h4 {
-          font-size: 0.95rem;
-          cursor: pointer;
-          margin: .2rem 0 0 0;
-        }
-        button {
-          margin: -0.2rem -0.6rem 0 0;
-          cursor: pointer;
-        }
-      }
-      .container-tasks-body {
-        p {
-          max-width: 350px;
-          max-height: 80px;
-          overflow: auto;
-          margin-left: 1.2rem;
-          font-size: 0.95rem;
-          cursor: pointer;
-        }
-      }
-      .container-tasks-footer {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        margin: 0 0.5rem 0.7rem 0;
-        span {
-          font-weight: bolder;
-          text-decoration: underline;
-        }
-        .datapicker {
-          margin-left: .5rem;
-        }
-      }
-    }
-  }
-  .blinking {
-    animation-name: opacity0;
-    animation-duration: 1s;
-    animation-iteration-count: 3;
-  }
-  .zooming {
-    animation-name: font-size140;
-    animation-duration: 1s;
-  }
-}
-@keyframes opacity0 {
-  0% {opacity: 0;}
-  50% {opacity: 1;}
-  100% {opacity: 0;}
-}
-@keyframes font-size140 {
-  50% {font-size: 140%;}
-}
-@media screen and (max-width: 480px) {
   .container-tasks {
-    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    max-width: 500px;
+    height: min-content;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 1.8rem 0 1rem 0;
+    padding-bottom: 1rem;
     h2 {
-      font-size: 0.7rem;
-    }
-    .formCreateDeactive {
-      margin-right: 1.5rem;
-    }
-    .formCreateActive {
-      margin-right: 1.1rem;
+      align-self: flex-end;
+      text-decoration: underline;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+      margin-right: 1.8rem;
+      cursor: pointer;
     }
     ul {
+      width: 90%;
+      list-style-type: none;
+      padding-right: 2.4rem;
       li {
+        display: flex;
+        flex-direction: column;
+        border-bottom: solid 1px #000;
+        background-color:rgb(218, 217, 214);
+        border-radius: 5px;
+        padding: 0 0.5rem;
+        margin-bottom: 0.7rem;
         .container-tasks-head {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
           h4 {
-            font-size: 0.8rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin: .2rem 0 0 0;
+          }
+          button {
+            margin: -0.2rem -0.6rem 0 0;
+            cursor: pointer;
           }
         }
         .container-tasks-body {
           p {
-            font-size: 0.7rem;
+            max-width: 350px;
+            max-height: 80px;
+            overflow: auto;
+            margin-left: 1.2rem;
+            font-size: 0.95rem;
+            cursor: pointer;
           }
         }
         .container-tasks-footer {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+          margin: 0 0.5rem 0.7rem 0;
           span {
-            font-size: .7rem;
-            margin-bottom: 0.2rem;
+            font-weight: bolder;
+            text-decoration: underline;
+          }
+          .datapicker {
+            margin-left: .5rem;
+          }
+        }
+      }
+    }
+    .zooming {
+      animation-name: font-size140;
+      animation-duration: 1s;
+    }
+      .allTasks-enter-active {
+      animation-name: opacity0;
+      animation-duration: 1s;
+      animation-iteration-count: 3;
+    }
+    @keyframes opacity0 {
+      0% {opacity: 0;}
+      50% {opacity: 1;}
+      100% {opacity: 0;}
+    }
+    @keyframes font-size140 {
+      50% {font-size: 140%;}
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .container-tasks {
+      min-width: 200px;
+      h2 {
+        font-size: 0.7rem;
+      }
+      .formCreateDeactive {
+        margin-right: 1.5rem;
+      }
+      .formCreateActive {
+        margin-right: 1.1rem;
+      }
+      ul {
+        li {
+          .container-tasks-head {
+            h4 {
+              font-size: 0.8rem;
+            }
+          }
+          .container-tasks-body {
+            p {
+              font-size: 0.7rem;
+            }
+          }
+          .container-tasks-footer {
+            span {
+              font-size: .7rem;
+              margin-bottom: 0.2rem;
+            }
           }
         }
       }
     }
   }
-}
 </style>

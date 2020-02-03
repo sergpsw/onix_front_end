@@ -1,14 +1,14 @@
 <template lang="pug">
-  ContentComingSoon
+  ContentFiles
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ContentComingSoon from '@/components/ContentComingSoon.vue';
+import ContentFiles from '@/components/ContentFiles.vue';
 
 @Component({
   components: {
-    ContentComingSoon,
+    ContentFiles,
   },
 })
 export default class Files extends Vue {}

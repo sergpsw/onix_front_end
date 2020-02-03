@@ -23,33 +23,33 @@
       ul
         li.head(
           @click="statusFilter = 'todo'") To Do
-          .countStatus {{ taskTodo }}
+          .countStatus {{ taskTodo.length }}
         Draggable(
           group="cell"
-          v-model='copyTasks'
-          :move="moveOn")
+          :move="moveOn"
+          :list='filteredTasks')
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="task.id"
             v-if="task.status === 'todo'"
-            :class="styleTodo")
+            :class="styleStatus")
             .div
             span(
               @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
-          @click="statusFilter = 'in progress'") In Progress
-          .countStatus {{ taskInprogress }}
+          @click="statusFilter = 'inprogress'") In Progress
+          .countStatus {{ taskInprogress.length }}
         Draggable(
           group="cell"
-          v-model='copyTasks'
-          :move="moveOn")
+          :move="moveOn"
+          :list='filteredTasks')
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
-            v-if="task.status === 'in progress'"
-            :class="styleInprogress")
+            v-if="task.status === 'inprogress'"
+            :class="styleStatus")
             .div
             span(
               @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
@@ -57,16 +57,16 @@
       ul
         li.head(
           @click="statusFilter = 'done'") Done
-          .countStatus {{ taskDone }}
+          .countStatus {{ taskDone.length }}
         Draggable(
           group="cell"
-          v-model='copyTasks'
-          :move="moveOn")
+          :move="moveOn"
+          :list='filteredTasks')
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
             v-if="task.status === 'done'"
-            :class="styleDone")
+            :class="styleStatus")
             .div
             span(
               @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
@@ -85,7 +85,7 @@ import Datepicker from 'vuejs-datepicker';
 import draggable from 'vuedraggable';
 import ModalDetailsTasks from '@/components/ModalWindows/ModalDetailsTasks.vue';
 import { ITask, eStatus } from '@/types/tasks';
-import MainMixin from '@/mixins/';
+import MainMixin from '@/mixins/MainMixin';
 
 
 @Component({
@@ -96,17 +96,14 @@ import MainMixin from '@/mixins/';
     Draggable: draggable,
   },
   computed: {
-    allTasks() {
-      return this.$store.getters.allTasks;
-    },
     taskTodo() {
-      return this.$store.getters.taskTodo.length;
+      return this.$store.getters.taskTodo;
     },
     taskInprogress() {
-      return this.$store.getters.taskInprogress.length;
+      return this.$store.getters.taskInprogress;
     },
     taskDone() {
-      return this.$store.getters.taskDone.length;
+      return this.$store.getters.taskDone;
     },
   },
 })
@@ -114,17 +111,11 @@ import MainMixin from '@/mixins/';
 export default class ContentKanban extends mixins(MainMixin) {
   detailsTask: ITask = {} as ITask;
 
-  copyTasks: ITask = this.$store.getters.allTasks;
-
   enumStatus: Object = eStatus;
 
   isModalDetails: boolean = false;
 
-  styleTodo: string = 'block-todo';
-
-  styleInprogress: string = 'block-inprogress';
-
-  styleDone: string = 'block-done';
+  styleStatus: string = '';
 
   statusFilter: string = '';
 
@@ -140,7 +131,7 @@ export default class ContentKanban extends mixins(MainMixin) {
       if (this.statusFilter === 'todo') {
         return this.$store.getters.taskTodo;
       }
-      if (this.statusFilter === 'in progress') {
+      if (this.statusFilter === 'inprogress') {
         return this.$store.getters.taskInprogress;
       }
       if (this.statusFilter === 'done') {
@@ -185,10 +176,10 @@ export default class ContentKanban extends mixins(MainMixin) {
     this.isModalDetails = true;
   }
 
-  moveOn() {
-    const tasks = this.copyTasks;
-    // eslint-disable-next-line
-    console.log(tasks);
+  moveOn(e: any) {
+    if (!(e.from.status === 'done' && e.to.status === 'todo')) {
+      this.styleStatus = 'inprogress';
+    }
   }
 }
 </script>
@@ -281,12 +272,12 @@ export default class ContentKanban extends mixins(MainMixin) {
         overflow: auto;
         cursor: pointer;
       }
-      .block-todo {
+      .todo {
         div{
           background-color: rgb(223, 82, 82);
         }
       }
-      .block-inprogress {
+      .inprogress {
         div{
           background-color: rgb(226, 168, 59);
         }

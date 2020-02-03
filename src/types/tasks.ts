@@ -8,6 +8,6 @@ export interface ITask {
 
 export enum eStatus {// eslint-disable-line import/prefer-default-export
   todo = 'todo',
-  inprogress = 'in progress',
+  inprogress = 'inprogress',
   done = 'done',
 }

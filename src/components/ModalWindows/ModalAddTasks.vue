@@ -48,14 +48,13 @@ export default class ModalAddTasks extends Vue {
       title: this.title,
       description: this.description,
       dateTime: this.dateTime,
-      status: eStatus.todo,
+      status: eStatus.inprogress,
     };
     if (this.title && this.description) {
       this.$store.dispatch('createTask', newTask);
       this.title = '';
       this.description = '';
       this.dateTime = '';
-      this.$emit('animatAddTask');
     }
   }
 }

@@ -30,40 +30,31 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 import { eventEmitter } from '../main';
-import { IActivityBlock } from '@/types/activity';
+import { IActivity } from '@/types/activity';
 
 @Component({
   name: 'ContentActivity',
+  computed: {
+    ...mapGetters([
+      'activityDate',
+      'ActivityBlock',
+      'imgs',
+    ]),
+  },
 })
 
 export default class ContentActivity extends Vue {
-  activityDate: string = 'Today';
+  // activityDate: string = 'Today';
 
-  ActivityBlock: IActivityBlock[] = [
-    {
-      text: 'Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users',
-      time: '8:40 PM',
-    },
-    {
-      text: 'Emilee Simchenko commented on Account for teams and personal in bottom style',
-      time: '7:32 PM',
-    },
-    {
-      text: 'During a project build, it is necessary to evaluate the product design and development against project requirements and outcomes',
-    },
-    {
-      text: 'Darika Samak uploaded 4 files on An option to search in current projects or in all projects',
-      time: '6:02 PM',
-    },
-  ]
 
-  imgs: string[] = [
-    'img1.jpg',
-    'img2.jpg',
-    'img3.jpg',
-    'img4.jpg',
-  ];
+  // imgs: string[] = [
+  //   'img1.jpg',
+  //   'img2.jpg',
+  //   'img3.jpg',
+  //   'img4.jpg',
+  // ];
 
   // eslint-disable-next-line
   clickedImg(index: number) {
