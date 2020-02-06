@@ -46,16 +46,6 @@ import { IActivity } from '@/types/activity';
 })
 
 export default class ContentActivity extends Vue {
-  // activityDate: string = 'Today';
-
-
-  // imgs: string[] = [
-  //   'img1.jpg',
-  //   'img2.jpg',
-  //   'img3.jpg',
-  //   'img4.jpg',
-  // ];
-
   // eslint-disable-next-line
   clickedImg(index: number) {
     eventEmitter.$emit('clickedImg', index);

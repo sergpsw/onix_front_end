@@ -26,8 +26,9 @@
           .countStatus {{ taskTodo.length }}
         Draggable(
           group="cell"
+          :status="taskTodo"
           :move="moveOn"
-          :list='filteredTasks')
+          :list="filteredTasks")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="task.id"
@@ -35,7 +36,8 @@
             :class="styleStatus")
             .div
             span(
-              @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
+              @click="activeModalDetails(task.id)"
+              v-if="task.dateTime > currentDate") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
@@ -43,8 +45,9 @@
           .countStatus {{ taskInprogress.length }}
         Draggable(
           group="cell"
+          :status="taskInprogress"
           :move="moveOn"
-          :list='filteredTasks')
+          :list="filteredTasks")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
@@ -52,7 +55,8 @@
             :class="styleStatus")
             .div
             span(
-              @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
+              @click="activeModalDetails(task.id)"
+              v-if="task.dateTime > currentDate") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
@@ -60,8 +64,9 @@
           .countStatus {{ taskDone.length }}
         Draggable(
           group="cell"
+          :status="taskDone"
           :move="moveOn"
-          :list='filteredTasks')
+          :list="filteredTasks")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
@@ -69,7 +74,8 @@
             :class="styleStatus")
             .div
             span(
-              @click="activeModalDetails(task.id)") {{ task.title | snippetText }}
+              @click="activeModalDetails(task.id)"
+              v-if="task.dateTime > currentDate") {{ task.title | snippetText }}
             span {{ task.dateTime | formatDate }}
       ModalDetailsTasks(
         v-show="isModalDetails"
@@ -82,6 +88,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import mixins from 'vue-class-component';
 import Datepicker from 'vuejs-datepicker';
+import { mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
 import ModalDetailsTasks from '@/components/ModalWindows/ModalDetailsTasks.vue';
 import { ITask, eStatus } from '@/types/tasks';
@@ -96,15 +103,11 @@ import MainMixin from '@/mixins/MainMixin';
     Draggable: draggable,
   },
   computed: {
-    taskTodo() {
-      return this.$store.getters.taskTodo;
-    },
-    taskInprogress() {
-      return this.$store.getters.taskInprogress;
-    },
-    taskDone() {
-      return this.$store.getters.taskDone;
-    },
+    ...mapGetters([
+      'taskTodo',
+      'taskInprogress',
+      'taskDone',
+    ]),
   },
 })
 
@@ -125,8 +128,11 @@ export default class ContentKanban extends mixins(MainMixin) {
 
   toDate: string = '';
 
+  currentDate: any = '';
+
+  currentCell: string = '';
+
   get filteredTasks(): ITask[] {
-    const self = this;
     if (this.statusFilter) {
       if (this.statusFilter === 'todo') {
         return this.$store.getters.taskTodo;
@@ -164,6 +170,10 @@ export default class ContentKanban extends mixins(MainMixin) {
     return this.$store.getters.allTasks;
   }
 
+  getDateTime() {
+    this.currentDate = new Date().toLocaleDateString();
+  }
+
   clearedFilter() {
     this.statusFilter = '';
     this.titleFilter = '';
@@ -178,8 +188,13 @@ export default class ContentKanban extends mixins(MainMixin) {
 
   moveOn(e: any) {
     if (!(e.from.status === 'done' && e.to.status === 'todo')) {
-      this.styleStatus = 'inprogress';
+      this.currentCell = e.draggedContext.element;
+      // this.styleStatus = e.to.status;
     }
+  }
+
+  mounted() {
+    this.getDateTime();
   }
 }
 </script>

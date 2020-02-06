@@ -7,15 +7,14 @@
       @closeModalAdd="activeModalAdd")
     ModalDetailsTasks(
       v-show="isModalDetails"
-      @closeModal="isModalDetails = false"
+      @closeModal="showModalDetails"
       :detailsTask="detailsTask"
       :task.id="taskid")
     ul.box-block-style
-      transition-group(name="allTasks")
+      transition-group(name="taskBlock")
         li(
           v-for="(task, index) in allTasks"
-          :key="task.id"
-          ref='animBlink')
+          :key="task.id")
           .container-tasks-head
             h4(
               ref='animZoom'
@@ -79,6 +78,16 @@ export default class ContentTasks extends mixins(MainMixin) {
   activeModalDetails(index: number): void {
     this.detailsTask = this.$store.getters.taskById(index);
     this.isModalDetails = true;
+  }
+
+  showModalDetails() {
+    // const modalWindow = getElementByClassName(.container-modal-mask);
+    // window.onclick = function(e: any) {
+    //   if(e.target === modalWindow);{
+    //     this.isModalDetails = !this.isModalDetails;
+    //   }
+    // }
+    this.isModalDetails = !this.isModalDetails;
   }
 
   activeModalAdd(): void {
@@ -186,7 +195,7 @@ export default class ContentTasks extends mixins(MainMixin) {
       animation-name: font-size140;
       animation-duration: 1s;
     }
-      .allTasks-enter-active {
+      .taskBlock-enter-active {
       animation-name: opacity0;
       animation-duration: 1s;
       animation-iteration-count: 3;

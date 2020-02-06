@@ -22,7 +22,6 @@ import { mapGetters } from 'vuex';
 })
 
 export default class ContentTasks extends Vue {
-  message404: string = '404 Not Found';
 }
 </script>
 

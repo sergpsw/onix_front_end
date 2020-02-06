@@ -1,11 +1,14 @@
 import Vue from 'vue'
-import MessageToggle from '@/components/MessageToggle.vue'
+import MainSidebar from '@/components/MainSidebar.vue'
 
-describe('MessageToggle.vue', () => {
-  it('displays default message', () => {
-    const Ctor = Vue.extend(MessageToggle)
-    const vm = new Ctor().$mount()
+describe('MainSidebar', () => {
+  it('has a created hook', () => {
+    expect(typeof MainSidebar.created).toBe('function')
+  })
 
-    expect(vm.$el.textContent).toContain('default message')
+  it('sets the correct default data', () => {
+    expect(typeof MainSidebar.data).toBe('function')
+    const defaultData = MainSidebar.data()
+    expect(defaultData.logo).toBe('Projectus')
   })
 })
