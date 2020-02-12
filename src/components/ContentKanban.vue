@@ -18,55 +18,59 @@
           placeholder="Enter name task"
           type="search")
         button.btn-clear(
-          @click="clearedFilter") Clear all filters
+          @click="clearFilter") Clear all filters
     .container-kanban-tabl
       ul
         li.head(
           @click="statusFilter = 'todo'") To Do
-          .countStatus {{ taskTodo.length }}
+          .countStatus(
+            v-if='taskTodo.length > 0') {{ taskTodo.length }}
         Draggable(
+          :id="'todo'"
           group="cell"
-          :status="taskTodo"
+          :list="taskTodo"
           :move="moveOn"
-          :list="filteredTasks")
+          @add="addBlockTask")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="task.id"
             v-if="task.status === 'todo'"
-            :class="styleStatus")
+            :class="'todo'")
             .div
             span(
-              @click="activeModalDetails(task.id)"
-              v-if="task.dateTime > currentDate") {{ task.title | snippetText }}
+              @click="activeModalDetails(task.id)") {{ task.title | snippetText8 }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
           @click="statusFilter = 'inprogress'") In Progress
-          .countStatus {{ taskInprogress.length }}
+          .countStatus(
+            v-if='taskInprogress.length > 0') {{ taskInprogress.length }}
         Draggable(
+          :id="'inprogress'"
           group="cell"
-          :status="taskInprogress"
+          :list="taskInprogress"
           :move="moveOn"
-          :list="filteredTasks")
+          @add="addBlockTask")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
             v-if="task.status === 'inprogress'"
-            :class="styleStatus")
+            :class="'inprogress'")
             .div
             span(
-              @click="activeModalDetails(task.id)"
-              v-if="task.dateTime > currentDate") {{ task.title | snippetText }}
+              @click="activeModalDetails(task.id)") {{ task.title | snippetText8 }}
             span {{ task.dateTime | formatDate }}
       ul
         li.head(
           @click="statusFilter = 'done'") Done
-          .countStatus {{ taskDone.length }}
+          .countStatus(
+            v-if='taskDone.length > 0') {{ taskDone.length }}
         Draggable(
+          :id="'done'"
           group="cell"
-          :status="taskDone"
+          :list="taskDone"
           :move="moveOn"
-          :list="filteredTasks")
+          @add="addBlockTask")
           li.body(
             v-for="(task, index) in filteredTasks"
             :key="index"
@@ -74,8 +78,7 @@
             :class="styleStatus")
             .div
             span(
-              @click="activeModalDetails(task.id)"
-              v-if="task.dateTime > currentDate") {{ task.title | snippetText }}
+              @click="activeModalDetails(task.id)") {{ task.title | snippetText8 }}
             span {{ task.dateTime | formatDate }}
       ModalDetailsTasks(
         v-show="isModalDetails"
@@ -87,7 +90,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import mixins from 'vue-class-component';
-import Datepicker from 'vuejs-datepicker';
 import { mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
 import ModalDetailsTasks from '@/components/ModalWindows/ModalDetailsTasks.vue';
@@ -99,7 +101,6 @@ import MainMixin from '@/mixins/MainMixin';
   name: 'ContentKanban',
   components: {
     ModalDetailsTasks,
-    Datepicker,
     Draggable: draggable,
   },
   computed: {
@@ -128,9 +129,7 @@ export default class ContentKanban extends mixins(MainMixin) {
 
   toDate: string = '';
 
-  currentDate: any = '';
-
-  currentCell: string = '';
+  currentTask: string = '';
 
   get filteredTasks(): ITask[] {
     if (this.statusFilter) {
@@ -170,11 +169,7 @@ export default class ContentKanban extends mixins(MainMixin) {
     return this.$store.getters.allTasks;
   }
 
-  getDateTime() {
-    this.currentDate = new Date().toLocaleDateString();
-  }
-
-  clearedFilter() {
+  clearFilter() {
     this.statusFilter = '';
     this.titleFilter = '';
     this.fromDate = '';
@@ -187,14 +182,19 @@ export default class ContentKanban extends mixins(MainMixin) {
   }
 
   moveOn(e: any) {
-    if (!(e.from.status === 'done' && e.to.status === 'todo')) {
-      this.currentCell = e.draggedContext.element;
-      // this.styleStatus = e.to.status;
+    this.currentTask = e.draggedContext.element;
+    if (!(e.from.id === 'done' && e.to.id === 'todo')) {
+      return true;
     }
+    return false;
   }
 
-  mounted() {
-    this.getDateTime();
+  addBlockTask(e: any) {
+    const task: any = this.currentTask;
+    const status: eStatus = e.to.id;
+    this.$store.dispatch('updateStatus', { id: task.id, status });
+    // eslint-disable-next-line
+    console.log(task.id);
   }
 }
 </script>
@@ -298,9 +298,6 @@ export default class ContentKanban extends mixins(MainMixin) {
         }
       }
     }
-    // ul:nth-child(3) {
-    //   margin-right: 0;
-    // }
   }
 }
 

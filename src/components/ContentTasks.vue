@@ -7,7 +7,7 @@
       @closeModalAdd="activeModalAdd")
     ModalDetailsTasks(
       v-show="isModalDetails"
-      @closeModal="showModalDetails"
+      @closeModal="isModalDetails = false"
       :detailsTask="detailsTask"
       :task.id="taskid")
     ul.box-block-style
@@ -23,10 +23,11 @@
               @click="deleteTask(index)")
           .container-tasks-body
             p(
-              @click="activeModalDetails(task.id)") {{ task.description }}
+              @click="activeModalDetails(task.id)") {{ task.description | snippetText32 }}
           .container-tasks-footer
             span {{ task.status }}
-            Datepicker.datapicker(
+            input.date(
+              type="date"
               v-model="task.dateTime"
               @input="changeDate(task)"
               placeholder="Date of completion")
@@ -36,7 +37,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import mixins from 'vue-class-component';
-import Datepicker from 'vuejs-datepicker';
 import { mapState, mapGetters } from 'vuex';
 import { ITask, eStatus } from '@/types/tasks';
 import ModalAddTasks from '@/components/ModalWindows/ModalAddTasks.vue';
@@ -49,7 +49,6 @@ import MainMixin from '@/mixins/MainMixin';
   components: {
     ModalAddTasks,
     ModalDetailsTasks,
-    Datepicker,
   },
   computed: {
     ...mapState([
@@ -63,11 +62,11 @@ import MainMixin from '@/mixins/MainMixin';
 export default class ContentTasks extends mixins(MainMixin) {
   detailsTask: ITask = {} as ITask;
 
-  enumStatus: Object = eStatus;
-
   isModalDetails: boolean = false;
 
   isModalAdd: boolean = false;
+
+  taskid: number = 0;
 
   headerAddTask: string = '+ Add New Task';
 
@@ -78,16 +77,6 @@ export default class ContentTasks extends mixins(MainMixin) {
   activeModalDetails(index: number): void {
     this.detailsTask = this.$store.getters.taskById(index);
     this.isModalDetails = true;
-  }
-
-  showModalDetails() {
-    // const modalWindow = getElementByClassName(.container-modal-mask);
-    // window.onclick = function(e: any) {
-    //   if(e.target === modalWindow);{
-    //     this.isModalDetails = !this.isModalDetails;
-    //   }
-    // }
-    this.isModalDetails = !this.isModalDetails;
   }
 
   activeModalAdd(): void {
@@ -185,7 +174,7 @@ export default class ContentTasks extends mixins(MainMixin) {
             font-weight: bolder;
             text-decoration: underline;
           }
-          .datapicker {
+          .date {
             margin-left: .5rem;
           }
         }
@@ -195,7 +184,7 @@ export default class ContentTasks extends mixins(MainMixin) {
       animation-name: font-size140;
       animation-duration: 1s;
     }
-      .taskBlock-enter-active {
+    .taskBlock-enter-active {
       animation-name: opacity0;
       animation-duration: 1s;
       animation-iteration-count: 3;

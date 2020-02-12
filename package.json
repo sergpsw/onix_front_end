@@ -9,7 +9,11 @@
     "unit": "jest"
   },
   "dependencies": {
+    "@babel/core": "^7.8.4",
+    "axios": "^0.19.2",
+    "babel-preset-env": "^1.7.0",
     "core-js": "^3.3.2",
+    "i": "^0.3.6",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-date": "^1.2.0",
@@ -27,7 +31,9 @@
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.31",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "jest": "^25.1.0",
@@ -39,7 +45,8 @@
     "vue-class-component": "^7.1.0",
     "vue-jest": "^3.0.5",
     "vue-property-decorator": "^8.3.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "vue-test-utils": "^1.0.0-beta.11"
   },
   "postcss": {
     "plugins": {

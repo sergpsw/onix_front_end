@@ -7,8 +7,11 @@ import { ITask } from '@/types/tasks';
     formatDate(date: number): string {
       return moment.utc(date).format('DD-MM-YYYY');
     },
-    snippetText(value: string): string {
-      return `${value.slice(0, 10)}...`;
+    snippetText8(value: string): string {
+      return `${value.slice(0, 8)}...`;
+    },
+    snippetText32(value: string): string {
+      return `${value.slice(0, 32)}...`;
     },
   },
 })

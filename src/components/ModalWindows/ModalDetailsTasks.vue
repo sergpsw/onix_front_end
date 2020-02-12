@@ -1,8 +1,10 @@
 <template lang="pug">
   transition(name="modal")
     .container-modal-mask
-       .modal-wrapper
-          .modal-container
+       .modal-wrapper(
+         @click.self="close")
+          .modal-container(
+            ref='modal')
             header.modal-header
               slot(
                 name="header")
@@ -55,6 +57,8 @@ export default class ModalDetailsTasks extends Vue {
   isButtonSave: boolean = false;
 
   nameButton: string = 'Edit';
+
+  modalEl: any = this.$refs;
 
   editCancel() {
     if (this.nameButton === 'Edit') {

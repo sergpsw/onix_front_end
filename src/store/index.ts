@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { ITask } from '@/types/tasks';
 import { IActivity } from '@/types/activity';
+// import { getTasks } from '@/service/tasksApi';
 // import tasks from './modules/tasks';
 // import activity from './modules/activity';
 
@@ -68,8 +69,7 @@ export default new Vuex.Store({
       const updTasks: ITask[] = state.tasks.concat();
       const idx: any = updTasks.find((task:any) => task.id === id);
       const task = updTasks[idx];
-      const status: any = new Date(dateTime) > new Date() ? 'inprogress' : 'todo';
-      // const dateTime2: string = (dateTime).format('dd MM YYYY');
+      const status: any = new Date(dateTime) > new Date() ? 'inprogress' : 'done';
       tasks[idx] = { ...task, status, dateTime };
       state.tasks = updTasks;
       localStorage.setItem('tasks', JSON.stringify(state.tasks));
@@ -78,7 +78,7 @@ export default new Vuex.Store({
       const updTasks: ITask[] = state.tasks.concat();
       const idx: any = updTasks.find((task:any) => task.id === id);
       const task = updTasks[idx];
-      tasks[idx] = { ...task, status };
+      tasks[idx] = { ...task, id, status };
       state.tasks = updTasks;
       localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },

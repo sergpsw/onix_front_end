@@ -40,22 +40,41 @@ export default class ModalAddTasks extends Vue {
 
   description: string = '';
 
-  dateTime: string = '';
+  status: string = ''
+
+  dateTime: any = null;
+
+  currentDate: any = null;
 
   submit() {
+    const dateTimeParse = Date.parse(this.dateTime);
+    const currentDateParse = Date.parse(this.currentDate);
+    if (dateTimeParse > (currentDateParse + 172800000)) {
+      this.status = eStatus.inprogress;
+    } else if (dateTimeParse < (currentDateParse + 172800000)) {
+      this.status = eStatus.todo;
+    }
     const newTask = {
       id: Date.now(),
       title: this.title,
       description: this.description,
       dateTime: this.dateTime,
-      status: eStatus.todo,
+      status: this.status,
     };
-    if (this.title && this.description) {
+    if (this.title && (dateTimeParse >= currentDateParse)) {
       this.$store.dispatch('createTask', newTask);
       this.title = '';
       this.description = '';
       this.dateTime = '';
+    } else if (dateTimeParse < currentDateParse) {
+      window.alert('Date is incorrect!');
+    } else if (!this.title) {
+      window.alert('Field "Title task" cannot be empty!');
     }
+  }
+
+  created() {
+    this.currentDate = new Date();
   }
 }
 </script>
